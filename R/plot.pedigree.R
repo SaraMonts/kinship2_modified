@@ -13,7 +13,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     if(is.null(status))
       status <- rep(0, n)
     else {
-        if(!all(status == 0 | status == 1 | status == -1 | status == 2 | status == 3 | status == 4 | status == 5 | status == 6 | status == 7 | status == 8 | status == 9 | status == -2))   # Afegeixo | status == -1...
+        if(!all(status == 0 | status == 1 | status == 2))   # Afegeixo | status == 2
           stop("Invalid status code")
         if(length(status) != n)
           stop("Wrong length for status")
@@ -47,15 +47,15 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         }
         ## JPS 4/28/17 bug fix b/c some cases NAs are not set to -1
         affected[is.na(affected)] <- -1
-        if (!all(affected==0 | affected==1 | affected == -1 | affected == 2))    # Afegeixo | affected == 2
+        if (!all(affected == 0 | affected == 1 | affected == -1 | affected == 2))    # Afegeixo | affected == 2
                 stop("Invalid code for affected status")
     }
 
     # Canvio les comprovacions de l'argument col
-    # Abans també: if (length(col) == 1) col <- rep(col, n)
+    # Abans tambe: if (length(col) == 1) col <- rep(col, n)
     if (length(col) != ncol(affected)) stop("Col argument must have length equal to number of columns of affected")
     
-    # Afegeixo comprovació de consultand
+    # Afegeixo comprovacio de consultand
     if (!is.null(consultand)) {
       `%notin%` = Negate(`%in%`)
       for (i in 1:length(consultand)){
@@ -64,14 +64,14 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
       }
     }
     
-    # Afegeixo comprovació de age
+    # Afegeixo comprovacio de age
     if (!is.null(age)) {
       if (length(age) != n) {
         stop("Wrong length for age")
       }
     }
     
-    # Afegeixo comprovació info
+    # Afegeixo comprovacio info
     if (!is.null(info)) {
       if (nrow(info) != n) {
         stop("Wrong number of rows for information matrix")
@@ -177,7 +177,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             ty <- zmat[,3] + z*zmat[,4]
             inner <- tx*cos(theta[i]) + ty*sin(theta[i])
             indx <- which(is.finite(z) & z>=0 &  z<=1 & inner >0)
-            if (length(indx) > 1) indx <- indx[1]     # Afegeixo aquesta condició per a que no doni error al generar el triangle
+            if (length(indx) > 1) indx <- indx[1]     # Afegeixo aquesta condicio per a que no doni error al generar el triangle
             x[i] <- tx[indx]
             y[i] <- ty[indx]
             }
@@ -255,20 +255,20 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         
         else {
             for (i in 1:length(affected)) {
-                if (affected[i]==0) {
+                if (affected[i] == 0) {
                     polygon(x + (polylistD[[sex]])[[i]]$x *boxw,     # Canvio a polylistD
                             y + (polylistD[[sex]])[[i]]$y *boxh,     # Canvio a polylistD
                             col=NA, border=1)   # Canvio border=col -> border=1
                     }
                 
-                if (affected[i]==1) {
+                if (affected[i] == 1) {
                     polygon(x + (polylistD[[sex]])[[i]]$x * boxw,     # Canvio a polylistD
                             y + (polylistD[[sex]])[[i]]$y * boxh,     # Canvio a polylistD
                             col=col[i], border=1, angle=angle[i])     # Canvio border=col -> border=1, col=col -> col=col[i] i elimino density
                     }
                
                 # Afegeixo aquest if
-                if (affected[i]==2) {
+                if (affected[i] == 2) {
                     polygon(x + (polylistD[[sex]])[[i]]$x * boxw, 
                             y + (polylistD[[sex]])[[i]]$y * boxh, 
                             col=col[i], border=1, density = 35, angle = 45)
@@ -300,8 +300,8 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         ## Do a black slash per Beth, old line was
         ##        x+ .6*boxw, y- .1*boxh, col=col)
        
-        # Afegeixo aquest condicional per a indicar si es tracta d'un embaràs
-        else if (status == -1) {
+        # Afegeixo aquest condicional per a indicar si es tracta d'un embaras
+        else if (status == 2) {
           #polygon(x + (polylist[[1]][[1]])$x * (boxw/3.3),
           #        y + (polylist[[1]][[1]])$y * (boxh/2.5) + boxh/3.3,
           #        col="white", border="white")
@@ -309,13 +309,13 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         }
        
         # Afegeixo aquests condicionals per a indicar si es tracta de varies persones
-        else if (status == 2 | status == 3 | status == 4 | status == 5 | status == 6 | status == 7 | status == 8 | status == 9) {
-          points(x + boxw*0.02, y + mean(range(polylist[[sex]][[1]]$y*boxh)), pch=paste(status), cex=symbolsize*0.8)
-        }
+        #else if (status == 2 | status == 3 | status == 4 | status == 5 | status == 6 | status == 7 | status == 8 | status == 9) {
+        #  points(x + boxw*0.02, y + mean(range(polylist[[sex]][[1]]$y*boxh)), pch=paste(status), cex=symbolsize*0.8)
+        #}
        
-        else if (status == -2) {
-          points(x + boxw*0.02, y + mean(range(polylist[[sex]][[1]]$y*boxh)), pch="n", cex=symbolsize*0.8)
-        }
+        #else if (status == -2) {
+        #  points(x + boxw*0.02, y + mean(range(polylist[[sex]][[1]]$y*boxh)), pch="n", cex=symbolsize*0.8)
+        #}
        
         # Afegeixo fletxa al consultand
         if (!is.null(consultand)) {
@@ -341,7 +341,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                     status[k], col, polylist, polylistD, density, angle,     # Afegeixo polylistD
                     boxw, boxh, x$id[k], age[k])                             # Afegeixo x$id[k] i age[k]
             
-            # Afegeixo informació
+            # Afegeixo informacio
             if (!is.null(info)) {
               pos_x <- plist$pos[i,j]
               pos_y <- i + boxh + labh*dist_text
