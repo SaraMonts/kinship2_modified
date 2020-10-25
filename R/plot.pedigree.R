@@ -1,7 +1,7 @@
 # Automatically generated from all.nw using noweb
 plot.pedigree <- function(x, id = x$id, status = x$status, 
-                          affected = x$affected, age = NULL,     # Afegeixo age = NULL
-                          cex = 1, col = 1, size = 1, dist_text = 1,      # Afegeixo size = 1 i dist_text = 1
+                          affected = x$affected, age = NULL, number = NULL,     # Afegeixo age = NULL i number = NULL
+                          cex = 1, col = 1, dist_text = 1,      # Afegeixo dist_text = 1
                           symbolsize = 1, branch = 0.6, info = NULL,      # Afegeixo info = NULL
                           packed = TRUE, align = c(1.5,2), width = 8, height = 4,   # Afegeixo height = 4
                           density=c(-1, 35,65,20), mar=c(4.1, 1, 4.1, 1),
@@ -71,6 +71,13 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
       }
     }
     
+    # Afegeixo comprovacio de number
+    if (!is.null(number)) {
+      if (length(number) != n) {
+        stop("Wrong length for number of people")
+      }
+    }
+    
     # Afegeixo comprovacio info
     if (!is.null(info)) {
       if (nrow(info) != n) {
@@ -119,6 +126,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         if (!is.null(plist$twins)) out$twins <- twin2[, 1:n, drop=F]
         out
         }
+    
     plist <- align.pedigree(x, packed = packed, width = width, align = align)
     if (!missing(subregion)) plist <- subregion2(plist, subregion)
     xrange <- range(plist$pos[plist$nid >0])
@@ -126,9 +134,9 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     frame()
     oldpar <- par(mar=mar, pin=c(width-2, height), xpd=TRUE)    # Afegeixo pin=c(width-2, height)
     psize <- par('pin')  # plot region in inches
-    stemp1 <- strwidth("ABC", units='inches', cex=size)* 2.5/3  # Canvio cex=cex -> cex=size
-    stemp2 <- strheight('1g', units='inches', cex=size)         # Canvio cex=cex -> cex=size
-    stemp3 <- max(strheight(id, units='inches', cex=size))      # Canvio cex=cex -> cex=size
+    stemp1 <- strwidth("ABC", units='inches', cex=1)* 2.5/3  # Canvio cex=cex -> cex=1
+    stemp2 <- strheight('1g', units='inches', cex=1)         # Canvio cex=cex -> cex=1
+    stemp3 <- max(strheight(id, units='inches', cex=1))      # Canvio cex=cex -> cex=1
 
     ht1 <- psize[2]/maxlev - (stemp3 + 1.5*stemp2)
     if (ht1 <=0) stop("Labels leave no room for the graph, reduce cex")
@@ -197,7 +205,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     
     # Elimino: if (ncol(affected)==1) {
     polylist <- list(
-        square = list(list(x=c(-1, -1, 1,1)/2,  y=c(0, 1, 1, 0))),
+        square = list(list(x=c(-1, -1, 1, 1)/2,  y=c(0, 1, 1, 0))),
         circle = list(list(x=.5* cos(seq(0, 2*pi, length=50)),
                            y=.5* sin(seq(0, 2*pi, length=50)) + .5)),
         diamond = list(list(x=c(0, -.5, 0, .5), y=c(0, .5, 1, .5))),
@@ -209,18 +217,18 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     if (ncol(affected)!=1) {
         nc <- ncol(affected)
         square <- polyfun(nc, list(x=c(-.5, -.5, .5, .5), y=c(-.5, .5, .5, -.5),
-                                    theta= -c(3,5,7,9)* pi/4))
+                                   theta= -c(3,5,7,9)* pi/4))
         circle <- circfun(nc)
-        diamond <-  polyfun(nc, list(x=c(0, -.5, 0, .5), y=c(-.5, 0, .5,0),
+        diamond <- polyfun(nc, list(x=c(0, -.5, 0, .5), y=c(-.5, 0, .5,0),
                                     theta= -(1:4) *pi/2))
         triangle <- polyfun(nc, list(x=c(-.56, .0, .56), y=c(0.32, -0.5, 0.32),    # Canvio coordenades y i valors de theta
                                      theta= -c(4, 7, 5) *pi/3))
         polylistD <- list(square=square, circle=circle, diamond=diamond,      # Canvio nom a polylistD
-                         triangle=triangle)
+                          triangle=triangle)
         }
 
-     drawbox<- function(x, y, sex, affected, status, col, polylist, polylistD,    # Afegeixo polylistD, id i age
-                density, angle, boxw, boxh, id, age) {
+     drawbox<- function(x, y, sex, affected, status, col, polylist, polylistD,    # Afegeixo polylistD, id, age i number
+                density, angle, boxw, boxh, id, age, number) {
         # Afegeixo condicionals
         if (sum(abs(affected)) == 0) {
             polygon(x + (polylist[[sex]][[1]])$x *boxw,
@@ -277,7 +285,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 if (affected[i] == -1) {
                     polygon(x + (polylistD[[sex]])[[i]]$x * boxw,     # Canvio a polylistD
                             y + (polylistD[[sex]])[[i]]$y * boxh,     # Canvio a polylistD
-                            col=NA, border=1)   # Canvio border=col -> border=1
+                            col=NA, border=1)                         # Canvio border=col -> border=1
                     
                     # Afegeixo condicionals per a introduir els ?
                     if (sex == 1 | sex == 2) {
@@ -308,14 +316,12 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
           points(x + boxw*0.02, y + mean(range(polylist[[sex]][[1]]$y*boxh)), pch="P", cex=symbolsize*0.8)
         }
        
-        # Afegeixo aquests condicionals per a indicar si es tracta de varies persones
-        #else if (status == 2 | status == 3 | status == 4 | status == 5 | status == 6 | status == 7 | status == 8 | status == 9) {
-        #  points(x + boxw*0.02, y + mean(range(polylist[[sex]][[1]]$y*boxh)), pch=paste(status), cex=symbolsize*0.8)
-        #}
-       
-        #else if (status == -2) {
-        #  points(x + boxw*0.02, y + mean(range(polylist[[sex]][[1]]$y*boxh)), pch="n", cex=symbolsize*0.8)
-        #}
+        # Afegeixo aquest condicional per a indicar si es tracta de varies persones
+        if (!is.null(number)) {
+          if (number != 1) {
+            points(x + boxw*0.02, y + mean(range(polylist[[sex]][[1]]$y*boxh)), pch=paste(number), cex=symbolsize*0.8)
+          }
+        }
        
         # Afegeixo fletxa al consultand
         if (!is.null(consultand)) {
@@ -339,7 +345,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             k <- plist$nid[i,j]
             drawbox(plist$pos[i,j], i, sex[k], affected[k,],
                     status[k], col, polylist, polylistD, density, angle,     # Afegeixo polylistD
-                    boxw, boxh, x$id[k], age[k])                             # Afegeixo x$id[k] i age[k]
+                    boxw, boxh, x$id[k], age[k], number[k])                  # Afegeixo x$id[k], age[k] i number[k]
             
             # Afegeixo informacio
             if (!is.null(info)) {
@@ -347,7 +353,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
               pos_y <- i + boxh + labh*dist_text
               for (c in 1:ncol(info)) {
                 if (!is.na(info[k,c])) {
-                  text(pos_x, pos_y, info[k,c], cex=cex, adj=c(.5,1), ...)
+                  text(pos_x, pos_y, info[k,c], cex=cex, adj=c(0.5,1), ...)
                   pos_y <- pos_y + labh
                 }
               }
