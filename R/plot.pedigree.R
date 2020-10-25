@@ -354,7 +354,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
               for (c in 1:ncol(info)) {
                 if (!is.na(info[k,c]) & info[k,c] != "") {
                   text(pos_x, pos_y, info[k,c], cex=cex, adj=c(0.5,1), ...)
-                  pos_y <- pos_y + labh * 1.2
+                  pos_y <- pos_y + labh * cex * 1.5
                 }
               }
             }
