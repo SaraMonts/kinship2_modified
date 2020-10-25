@@ -2,11 +2,11 @@
 plot.pedigree <- function(x, id = x$id, status = x$status, 
                           affected = x$affected, age = NULL, number = NULL,     # Afegeixo age = NULL i number = NULL
                           cex = 1, col = 1, dist_text = 1,      # Afegeixo dist_text = 1
-                          symbolsize = 1, branch = 0.6, info = NULL,      # Afegeixo info = NULL
+                          symbolsize = 1, branch = 0.6,       
                           packed = TRUE, align = c(1.5,2), width = 8, height = 4,   # Afegeixo height = 4
                           density=c(-1, 35,65,20), mar=c(4.1, 1, 4.1, 1),
                           angle=c(90,65,40,0), keep.par=FALSE,
-                          subregion, pconnect=.5, consultand = NULL, ...)     # Afegeixo consultand = NULL
+                          subregion, pconnect=.5, consultand = NULL, info = NULL, ...)     # Afegeixo consultand = NULL i info = NULL
 {
     Call <- match.call()
     n <- length(x$id)        
@@ -352,9 +352,9 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
               pos_x <- plist$pos[i,j]
               pos_y <- i + boxh + labh*dist_text
               for (c in 1:ncol(info)) {
-                if (!is.na(info[k,c])) {
+                if (!is.na(info[k,c]) & info[k,c] != "") {
                   text(pos_x, pos_y, info[k,c], cex=cex, adj=c(0.5,1), ...)
-                  pos_y <- pos_y + labh
+                  pos_y <- pos_y + labh * 1.2
                 }
               }
             }
