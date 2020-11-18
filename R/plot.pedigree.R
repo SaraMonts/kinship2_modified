@@ -76,6 +76,9 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
       if (length(number) != n) {
         stop("Wrong length for number of people")
       }
+      if (!all(number == 1 | number == 2 | number == 3 | number == 4 | number == 5 | number == 6 | number == 7 | number == 8 | number == 9 | number == "n")) {
+        stop("Wrong value for number of people")
+      }
     }
     
     # Afegeixo comprovacio info
@@ -416,7 +419,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
               temp1 <- (plist$pos[i, who][who2] + target[who2])/2
               temp2 <- (plist$pos[i, who][who2+1] + target[who2])/2
                 yy <- rep(i, length(who2)) - legh/2
-                text((temp1+temp2)/2, yy, '?')
+                text((temp1+temp2)/2, yy, '?', cex = symbolsize * 0.5)       # Afegeixo cex = symbolsize * 0.5
                 }
             
             # Add the horizontal line 
