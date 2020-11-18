@@ -90,6 +90,22 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     }
     
     
+    if (2 %in% affected | 3 %in% affected) {
+      for (i in 1:nrow(affected)) {
+        r <- affected[i,]
+        if (2 %in% r | 3 %in% r) {
+          c <- which(r == 2 | r == 3)[1]
+          if (sum(abs(r[-c])) != 0) {
+            stop("Carrier status can only be represented for an individual if this individual is not affected by any other fenotype")
+          }
+        }
+      }
+    }
+    
+    
+    
+    
+    
     subregion2 <- function(plist, subreg) {
         if (subreg[3] <1 || subreg[4] > length(plist$n)) 
             stop("Invalid depth indices in subreg")
@@ -235,13 +251,6 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
 
      drawbox <- function(x, y, sex, affected, status, col, polylist, polylistD,    # Afegeixo polylistD, id, age i number
                 density, angle, boxw, boxh, id, age, number) {
-        
-        if (2 %in% affected | 3 %in% affected) {
-          c <- which(affected == 2 | affected == 3)[1]
-          if (sum(abs(affected[-c])) != 0) {
-            stop("Carrier status can only be represented for an individual if this individual is not affected by any other fenotype")
-          }
-        }
        
        
         a <- which(affected != 0)
@@ -266,7 +275,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 midx <- x + mean(range(polylist[[sex]][[1]]$x*boxw))
                 midy <- y + mean(range(polylist[[sex]][[1]]$y*boxh))
                 
-                points(midx, midy, pch=16, cex=symbolsize)
+                points(midx, midy, pch=16, cex=symbolsize, col=col[a])
             }
           
             else if (affected[a] == -1) {
