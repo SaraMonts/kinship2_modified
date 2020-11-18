@@ -218,18 +218,20 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     # else {
     
     # Afegeixo aquest condicional if
-    if (ncol(affected)!=1) {
-        nc <- ncol(affected)
-        square <- polyfun(nc, list(x=c(-.5, -.5, .5, .5), y=c(-.5, .5, .5, -.5),
-                                   theta= -c(3,5,7,9)* pi/4))
-        circle <- circfun(nc)
-        diamond <- polyfun(nc, list(x=c(0, -.5, 0, .5), y=c(-.5, 0, .5,0),
-                                    theta= -(1:4) *pi/2))
-        triangle <- polyfun(nc, list(x=c(-.56, .0, .56), y=c(0.32, -0.5, 0.32),    # Canvio coordenades y i valors de theta
-                                     theta= -c(4, 7, 5) *pi/3))
-        polylistD <- list(square=square, circle=circle, diamond=diamond,      # Canvio nom a polylistD
-                          triangle=triangle)
+    if (ncol(affected) != 1) {
+        polylistD <- list()
+        for (i in 2:ncol(affected)) {
+          square <- polyfun(i, list(x=c(-.5, -.5, .5, .5), y=c(-.5, .5, .5, -.5),
+                                    theta= -c(3,5,7,9)* pi/4))
+          circle <- circfun(i)
+          diamond <- polyfun(i, list(x=c(0, -.5, 0, .5), y=c(-.5, 0, .5,0),
+                                     theta= -(1:4) *pi/2))
+          triangle <- polyfun(i, list(x=c(-.56, .0, .56), y=c(0.32, -0.5, 0.32),    # Canvio coordenades y i valors de theta
+                                      theta= -c(4, 7, 5) *pi/3))
+          polylistD[[i]] <- list(square=square, circle=circle, diamond=diamond,      # Canvio nom a polylistD
+                                 triangle=triangle)
         }
+     }
 
      drawbox<- function(x, y, sex, affected, status, col, polylist, polylistD,    # Afegeixo polylistD, id, age i number
                 density, angle, boxw, boxh, id, age, number) {
@@ -237,14 +239,14 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         a <- which(affected != 0)
         l <- length(a)
         if (l == 0) {
-            polygon(x + (polylist[[sex]][[1]])$x *boxw,
-                    y + (polylist[[sex]][[1]])$y *boxh,
+            polygon(x + polylist[[sex]][[1]]$x *boxw,
+                    y + polylist[[sex]][[1]]$y *boxh,
                     col=NA, border=1)
         }
         else if (l == 1) {
             if (affected[a] == 1) {
-              polygon(x + (polylist[[sex]][[1]])$x * boxw,
-                      y + (polylist[[sex]][[1]])$y * boxh,
+              polygon(x + polylist[[sex]][[1]]$x * boxw,
+                      y + polylist[[sex]][[1]]$y * boxh,
                       col=col[a], border=1, density=density[a], angle=angle[a])
             }
           
@@ -255,8 +257,8 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             #}
           
             else if (affected[a] == -1) {
-              polygon(x + (polylist[[sex]][[1]])$x * boxw,
-                      y + (polylist[[sex]][[1]])$y * boxh,
+              polygon(x + polylist[[sex]][[1]]$x * boxw,
+                      y + polylist[[sex]][[1]]$y * boxh,
                       col=NA, border=1)
             
               midx <- x + mean(range(polylist[[sex]][[1]]$x*boxw))
@@ -269,8 +271,8 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             for (i in 1:l) {
               pos <- a[i]
               if (affected[pos] == 1) {
-                polygon(x + (polylistD[[sex]])[[i]]$x * boxw,     # Canvio a polylistD
-                        y + (polylistD[[sex]])[[i]]$y * boxh,     # Canvio a polylistD
+                polygon(x + polylistD[[l]][[sex]][[i]]$x * boxw,     # Canvio a polylistD
+                        y + polylistD[[l]][[sex]][[i]]$y * boxh,     # Canvio a polylistD
                         col=col[pos], border=1, density=density[pos], angle=angle[pos])     # Canvio border=col -> border=1, col=col -> col=col[i] i elimino density
               }
               
@@ -282,14 +284,14 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
               #}
               
               else if (affected[pos] == -1) {
-                polygon(x + (polylistD[[sex]])[[i]]$x * boxw,     # Canvio a polylistD
-                        y + (polylistD[[sex]])[[i]]$y * boxh,     # Canvio a polylistD
+                polygon(x + polylistD[[l]][[sex]][[i]]$x * boxw,     # Canvio a polylistD
+                        y + polylistD[[l]][[sex]][[i]]$y * boxh,     # Canvio a polylistD
                         col=NA, border=1)                         # Canvio border=col -> border=1
                 
                 # Afegeixo condicionals per a introduir els ?
                 if (sex == 1 | sex == 2) {
-                  midx <- x + mean(range(polylistD[[sex]][[l]]$x*boxw))     # Canvio a polylistD
-                  midy <- y + mean(range(polylistD[[sex]][[l]]$y*boxh))     # Canvio a polylistD
+                  midx <- x + mean(range(polylistD[[l]][[sex]][[l]]$x*boxw))     # Canvio a polylistD
+                  midy <- y + mean(range(polylistD[[l]][[sex]][[l]]$y*boxh))     # Canvio a polylistD
                 }
                 
                 else if (sex == 3 | sex == 4) {
