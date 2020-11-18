@@ -233,9 +233,17 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         }
      }
 
-     drawbox<- function(x, y, sex, affected, status, col, polylist, polylistD,    # Afegeixo polylistD, id, age i number
+     drawbox <- function(x, y, sex, affected, status, col, polylist, polylistD,    # Afegeixo polylistD, id, age i number
                 density, angle, boxw, boxh, id, age, number) {
         
+        if (2 %in% affected | 3 %in% affected) {
+          c <- which(affected == 2 | affected == 3)[1]
+          if (sum(abs(affected[-c])) != 0) {
+            stop("Carrier status can only be represented for an individual if this individual is not affected by any other fenotype")
+          }
+        }
+       
+       
         a <- which(affected != 0)
         l <- length(a)
         if (l == 0) {
@@ -250,11 +258,16 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                       col=col[a], border=1, density=density[a], angle=angle[a])
             }
           
-            #if (affected == 2) {
-            #    polygon(x + (polylist[[sex]][[1]])$x * boxw,
-            #            y + (polylist[[sex]][[1]])$y * boxh,
-            #            col=col, border=1, density = 35, angle = 45)
-            #}
+            else if (affected[a] == 2) {
+                polygon(x + polylist[[sex]][[1]]$x * boxw,
+                        y + polylist[[sex]][[1]]$y * boxh,
+                        col=NA, border=1)
+                 
+                midx <- x + mean(range(polylist[[sex]][[1]]$x*boxw))
+                midy <- y + mean(range(polylist[[sex]][[1]]$y*boxh))
+                
+                points(midx, midy, pch=16, cex=symbolsize)
+            }
           
             else if (affected[a] == -1) {
               polygon(x + polylist[[sex]][[1]]$x * boxw,
@@ -276,12 +289,6 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                         col=col[pos], border=1, density=density[pos], angle=angle[pos])     # Canvio border=col -> border=1, col=col -> col=col[i] i elimino density
               }
               
-              # Afegeixo aquest if
-              #if (affected[i] == 2) {
-              #    polygon(x + (polylistD[[sex]])[[i]]$x * boxw, 
-              #            y + (polylistD[[sex]])[[i]]$y * boxh, 
-              #            col=col[i], border=1, density = 35, angle = 45)
-              #}
               
               else if (affected[pos] == -1) {
                 polygon(x + polylistD[[l]][[sex]][[i]]$x * boxw,     # Canvio a polylistD
@@ -310,86 +317,6 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
        
        
        
-        # Afegeixo condicionals
-        # Si tots els valors d'affected de l'individu són 0
-        #if (sum(abs(affected)) == 0) {
-        #    polygon(x + (polylist[[sex]][[1]])$x *boxw,
-        #            y + (polylist[[sex]][[1]])$y *boxh,
-        #            col=NA, border=1)
-        #}
-        
-        # Si només un dels valors d'affected de l'individu és diferent de 0
-        #else if (length(affected[affected != 0]) == 1) {
-        #    a <- which(affected != 0)
-        #    if (affected[a] == 1) {
-        #        polygon(x + (polylist[[sex]][[1]])$x * boxw,
-        #                y + (polylist[[sex]][[1]])$y * boxh,
-        #                col=col[a], border=1, density=density[a], angle=angle[a])
-        #    }
-          
-            #if (affected == 2) {
-            #    polygon(x + (polylist[[sex]][[1]])$x * boxw,
-            #            y + (polylist[[sex]][[1]])$y * boxh,
-            #            col=col, border=1, density = 35, angle = 45)
-            #}
-          
-         #   if (affected[a] == -1) {
-        #        polygon(x + (polylist[[sex]][[1]])$x * boxw,
-        #                y + (polylist[[sex]][[1]])$y * boxh,
-        #                col=NA, border=1)
-        #    
-        #        midx <- x + mean(range(polylist[[sex]][[1]]$x*boxw))
-        #        midy <- y + mean(range(polylist[[sex]][[1]]$y*boxh))
-            
-        #        points(midx, midy, pch="?", cex=symbolsize)    # Canvio cex=min(1, cex*2/length(affected)) -> cex=symbolsize
-        #    }
-        #}
-        
-        # Si dos o més dels valors d'affected de l'individu són diferents de 0
-        #else if (length(affected[affected != 0]) > 1) {
-        #    a <- which(affected != 0)
-        #    l <- length(a)
-        #    for (i in length(affected)) {
-        #        if (affected[i] == 0) {
-        #            polygon(x + (polylistD[[sex]])[[l]]$x *boxw,     # Canvio a polylistD
-        #                    y + (polylistD[[sex]])[[l]]$y *boxh,     # Canvio a polylistD
-        #                    col=NA, border=1)   # Canvio border=col -> border=1
-        #            }
-                
-        #        if (affected[i] == 1) {
-        #            polygon(x + (polylistD[[sex]])[[l]]$x * boxw,     # Canvio a polylistD
-        #                    y + (polylistD[[sex]])[[l]]$y * boxh,     # Canvio a polylistD
-        #                    col=col[i], border=1, density=density[i], angle=angle[i])     # Canvio border=col -> border=1, col=col -> col=col[i] i elimino density
-        #            }
-               
-                # Afegeixo aquest if
-                #if (affected[i] == 2) {
-                #    polygon(x + (polylistD[[sex]])[[i]]$x * boxw, 
-                #            y + (polylistD[[sex]])[[i]]$y * boxh, 
-                #            col=col[i], border=1, density = 35, angle = 45)
-                #}
-            
-         #       if (affected[i] == -1) {
-        #            polygon(x + (polylistD[[sex]])[[l]]$x * boxw,     # Canvio a polylistD
-        #                    y + (polylistD[[sex]])[[l]]$y * boxh,     # Canvio a polylistD
-        #                    col=NA, border=1)                         # Canvio border=col -> border=1
-                    
-                    # Afegeixo condicionals per a introduir els ?
-        #            if (sex == 1 | sex == 2) {
-        #              midx <- x + mean(range(polylistD[[sex]][[l]]$x*boxw))     # Canvio a polylistD
-        #              midy <- y + mean(range(polylistD[[sex]][[l]]$y*boxh))     # Canvio a polylistD
-        #            }
-                  
-         #           else if (sex == 3 | sex == 4) {
-        #              midx <- x + (mean(range(polylistD[[sex]][[l]]$x*boxw)) * 0.5)   # Multiplico per 0.5
-        #              midy <- y + mean(range(polylistD[[sex]][[l]]$y*boxh))
-        #            }
-        #            points(midx, midy, pch="?", cex=symbolsize/(l*0.7))    # Canvio cex=min(1, cex*2/length(affected)) -> cex=symbolsize/(length(affected)*0.7)
-        #            
-        #         }
-        #     }
-           
-        #}
         if (status==1) segments(x- .6*boxw, y+1.1*boxh, 
                                x+ .6*boxw, y- .1*boxh,)
         ## Do a black slash per Beth, old line was
