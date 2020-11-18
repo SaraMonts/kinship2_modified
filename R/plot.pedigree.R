@@ -4,8 +4,8 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                           cex = 1, col = 1, dist_text = 1,      # Afegeixo dist_text = 1
                           symbolsize = 1, branch = 0.6,       
                           packed = TRUE, align = c(1.5,2), width = 8, height = 4,   # Afegeixo height = 4
-                          density=c(-1, 35,65,20), mar=c(4.1, 1, 4.1, 1),
-                          angle=c(90,65,40,0), keep.par=FALSE,
+                          density = -1, mar=c(4.1, 1, 4.1, 1),    # Canvio a density = -1
+                          angle = 90, keep.par=FALSE,          # Canvio a angle = 90
                           subregion, pconnect=.5, consultand = NULL, info = NULL, ...)     # Afegeixo consultand = NULL i info = NULL
 {
     Call <- match.call()
@@ -29,8 +29,9 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         if (is.matrix(affected)){
             if (nrow(affected) != n) stop("Wrong number of rows in affected")
             if (is.logical(affected)) affected <- 1* affected
-            if (ncol(affected) > length(angle) || ncol(affected) > length(density))
-                stop("More columns in the affected matrix than angle/density values")
+            # Afegeixo comprovació density i angle
+            if (ncol(affected) != length(angle) || ncol(affected) != length(density))
+                stop("Number of angle/density values must be equal to number of columns of affected")
             } 
         else {
             if (length(affected) != n)
@@ -47,7 +48,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         }
         ## JPS 4/28/17 bug fix b/c some cases NAs are not set to -1
         affected[is.na(affected)] <- -1
-        if (!all(affected == 0 | affected == 1 | affected == -1 | affected == 2))    # Afegeixo | affected == 2
+        if (!all(affected == 0 | affected == 1 | affected == -1 | affected == 2 | affected == 3))    # Afegeixo | affected == 2 | affected == 3
                 stop("Invalid code for affected status")
     }
 
@@ -232,27 +233,31 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
 
      drawbox<- function(x, y, sex, affected, status, col, polylist, polylistD,    # Afegeixo polylistD, id, age i number
                 density, angle, boxw, boxh, id, age, number) {
+       
         # Afegeixo condicionals
+        # Si tots els valors d'affected de l'individu són 0
         if (sum(abs(affected)) == 0) {
             polygon(x + (polylist[[sex]][[1]])$x *boxw,
                     y + (polylist[[sex]][[1]])$y *boxh,
                     col=NA, border=1)
         }
         
-        else if (length(affected) == 1) {
-            if (affected == 1) {
+        # Si només un dels valors d'affected de l'individu és diferent de 0
+        else if (length(affected[affected != 0]) == 1) {
+            a <- which(affected != 0)
+            if (affected[a] == 1) {
                 polygon(x + (polylist[[sex]][[1]])$x * boxw,
                         y + (polylist[[sex]][[1]])$y * boxh,
-                        col=col, border=1)
+                        col=col[a], border=1, density=density[a], angle=angle[a])
             }
           
-            if (affected == 2) {
-                polygon(x + (polylist[[sex]][[1]])$x * boxw,
-                        y + (polylist[[sex]][[1]])$y * boxh,
-                        col=col, border=1, density = 35, angle = 45)
-            }
+            #if (affected == 2) {
+            #    polygon(x + (polylist[[sex]][[1]])$x * boxw,
+            #            y + (polylist[[sex]][[1]])$y * boxh,
+            #            col=col, border=1, density = 35, angle = 45)
+            #}
           
-            if (affected == -1) {
+            if (affected[a] == -1) {
                 polygon(x + (polylist[[sex]][[1]])$x * boxw,
                         y + (polylist[[sex]][[1]])$y * boxh,
                         col=NA, border=1)
@@ -261,46 +266,49 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 midy <- y + mean(range(polylist[[sex]][[1]]$y*boxh))
             
                 points(midx, midy, pch="?", cex=symbolsize)    # Canvio cex=min(1, cex*2/length(affected)) -> cex=symbolsize
-             }
+            }
         }
         
-        else {
-            for (i in 1:length(affected)) {
+        # Si dos o més dels valors d'affected de l'individu són diferents de 0
+        else if (length(affected[affected != 0]) > 1) {
+            a <- which(affected != 0)
+            l <- length(a)
+            for (i in a) {
                 if (affected[i] == 0) {
-                    polygon(x + (polylistD[[sex]])[[i]]$x *boxw,     # Canvio a polylistD
-                            y + (polylistD[[sex]])[[i]]$y *boxh,     # Canvio a polylistD
+                    polygon(x + (polylistD[[sex]])[[l]]$x *boxw,     # Canvio a polylistD
+                            y + (polylistD[[sex]])[[l]]$y *boxh,     # Canvio a polylistD
                             col=NA, border=1)   # Canvio border=col -> border=1
                     }
                 
                 if (affected[i] == 1) {
-                    polygon(x + (polylistD[[sex]])[[i]]$x * boxw,     # Canvio a polylistD
-                            y + (polylistD[[sex]])[[i]]$y * boxh,     # Canvio a polylistD
-                            col=col[i], border=1, angle=angle[i])     # Canvio border=col -> border=1, col=col -> col=col[i] i elimino density
+                    polygon(x + (polylistD[[sex]])[[l]]$x * boxw,     # Canvio a polylistD
+                            y + (polylistD[[sex]])[[l]]$y * boxh,     # Canvio a polylistD
+                            col=col[i], border=1, density=density[i], angle=angle[i])     # Canvio border=col -> border=1, col=col -> col=col[i] i elimino density
                     }
                
                 # Afegeixo aquest if
-                if (affected[i] == 2) {
-                    polygon(x + (polylistD[[sex]])[[i]]$x * boxw, 
-                            y + (polylistD[[sex]])[[i]]$y * boxh, 
-                            col=col[i], border=1, density = 35, angle = 45)
-                }
+                #if (affected[i] == 2) {
+                #    polygon(x + (polylistD[[sex]])[[i]]$x * boxw, 
+                #            y + (polylistD[[sex]])[[i]]$y * boxh, 
+                #            col=col[i], border=1, density = 35, angle = 45)
+                #}
             
                 if (affected[i] == -1) {
-                    polygon(x + (polylistD[[sex]])[[i]]$x * boxw,     # Canvio a polylistD
-                            y + (polylistD[[sex]])[[i]]$y * boxh,     # Canvio a polylistD
+                    polygon(x + (polylistD[[sex]])[[l]]$x * boxw,     # Canvio a polylistD
+                            y + (polylistD[[sex]])[[l]]$y * boxh,     # Canvio a polylistD
                             col=NA, border=1)                         # Canvio border=col -> border=1
                     
                     # Afegeixo condicionals per a introduir els ?
                     if (sex == 1 | sex == 2) {
-                      midx <- x + mean(range(polylistD[[sex]][[i]]$x*boxw))     # Canvio a polylistD
-                      midy <- y + mean(range(polylistD[[sex]][[i]]$y*boxh))     # Canvio a polylistD
+                      midx <- x + mean(range(polylistD[[sex]][[l]]$x*boxw))     # Canvio a polylistD
+                      midy <- y + mean(range(polylistD[[sex]][[l]]$y*boxh))     # Canvio a polylistD
                     }
                   
                     else if (sex == 3 | sex == 4) {
-                      midx <- x + (mean(range(polylistD[[sex]][[i]]$x*boxw)) * 0.5)   # Multiplico per 0.5
-                      midy <- y + mean(range(polylistD[[sex]][[i]]$y*boxh))
+                      midx <- x + (mean(range(polylistD[[sex]][[l]]$x*boxw)) * 0.5)   # Multiplico per 0.5
+                      midy <- y + mean(range(polylistD[[sex]][[l]]$y*boxh))
                     }
-                    points(midx, midy, pch="?", cex=symbolsize/(length(affected)*0.7))    # Canvio cex=min(1, cex*2/length(affected)) -> cex=symbolsize/(length(affected)*0.7)
+                    points(midx, midy, pch="?", cex=symbolsize/(l*0.7))    # Canvio cex=min(1, cex*2/length(affected)) -> cex=symbolsize/(length(affected)*0.7)
                     
                  }
              }
