@@ -278,6 +278,18 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 points(midx, midy, pch=16, cex=symbolsize, col=col[a])
             }
           
+            else if (affected[a] == 3) {
+                polygon(x + polylist[[sex]][[1]]$x * boxw,
+                        y + polylist[[sex]][[1]]$y * boxh,
+                        col=NA, border=1)
+              
+                midx <- x + mean(range(polylist[[sex]][[1]]$x*boxw))
+                supy <- y + min(range(polylist[[sex]][[1]]$y*boxh))
+                infy <- y + max(range(polylist[[sex]][[1]]$y*boxh))
+              
+                segments(midx, supy, midx, infy, col = col[a], lwd = 2)
+            }
+          
             else if (affected[a] == -1) {
               polygon(x + polylist[[sex]][[1]]$x * boxw,
                       y + polylist[[sex]][[1]]$y * boxh,
