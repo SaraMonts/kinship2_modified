@@ -287,7 +287,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 supy <- y + min(range(polylist[[sex]][[1]]$y*boxh))
                 infy <- y + max(range(polylist[[sex]][[1]]$y*boxh))
               
-                segments(midx, supy, midx, infy, col = col[a], lwd = symbolsize*2)
+                segments(midx, supy, midx, infy, col = col[a], lwd = symbolsize*2, lend = 1)
             }
           
             else if (affected[a] == -1) {
