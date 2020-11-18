@@ -29,17 +29,19 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         if (is.matrix(affected)){
             if (nrow(affected) != n) stop("Wrong number of rows in affected")
             if (is.logical(affected)) affected <- 1* affected
+            
             # Afegeixo comprovació density i angle
             if (ncol(affected) != length(angle) || ncol(affected) != length(density))
                 stop("Number of angle/density values must be equal to number of columns of affected")
-            } 
+        } 
+        
         else {
             if (length(affected) != n)
                 stop("Wrong length for affected")
 
             if (is.logical(affected)) affected <- as.numeric(affected)
             if (is.factor(affected))  affected <- as.numeric(affected) -1
-            }
+        }
         if(max(affected, na.rm=TRUE) > min(affected, na.rm=TRUE)) {
           affected <- matrix(affected - min(affected, na.rm=TRUE),nrow=n)
          ## affected[is.na(affected)] <- -1
@@ -52,9 +54,10 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 stop("Invalid code for affected status")
     }
 
+    
     # Canvio les comprovacions de l'argument col
     # Abans tambe: if (length(col) == 1) col <- rep(col, n)
-    if (length(col) != ncol(affected)) stop("Col argument must have length equal to number of columns of affected")
+    if (length(col) != ncol(affected)) stop("col argument must have length equal to number of columns of affected")
     
     # Afegeixo comprovacio de consultand
     if (!is.null(consultand)) {
@@ -82,14 +85,15 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
       }
     }
     
-    # Afegeixo comprovacio info
+    # Afegeixo comprovacio de info
     if (!is.null(info)) {
       if (nrow(info) != n) {
         stop("Wrong number of rows for information matrix")
       }
     }
     
-    
+    # Afegeixo comprovació de que si un individu presenta els valors 2 o 3 a affected (portadors) no pot estar
+    # afectat per cap altre fenotip
     if (2 %in% affected | 3 %in% affected) {
       for (i in 1:nrow(affected)) {
         r <- affected[i,]
@@ -103,8 +107,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     }
     
     
-    
-    
+
     
     subregion2 <- function(plist, subreg) {
         if (subreg[3] <1 || subreg[4] > length(plist$n)) 
@@ -154,9 +157,9 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     frame()
     oldpar <- par(mar=mar, pin=c(width-2, height), xpd=TRUE)    # Afegeixo pin=c(width-2, height)
     psize <- par('pin')  # plot region in inches
-    stemp1 <- strwidth("ABC", units='inches', cex=1)* 2.5/3  # Canvio cex=cex -> cex=1
-    stemp2 <- strheight('1g', units='inches', cex=1)         # Canvio cex=cex -> cex=1
-    stemp3 <- max(strheight(id, units='inches', cex=1))      # Canvio cex=cex -> cex=1
+    stemp1 <- strwidth("ABC", units='inches', cex=1)* 2.5/3     # Canvio cex=cex -> cex=1
+    stemp2 <- strheight('1g', units='inches', cex=1)            # Canvio cex=cex -> cex=1
+    stemp3 <- max(strheight(id, units='inches', cex=1))         # Canvio cex=cex -> cex=1
 
     ht1 <- psize[2]/maxlev - (stemp3 + 1.5*stemp2)
     if (ht1 <=0) stop("Labels leave no room for the graph, reduce cex")
@@ -223,6 +226,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         out
         }
     
+    
     # Elimino: if (ncol(affected)==1) {
     polylist <- list(
         square = list(list(x=c(-1, -1, 1, 1)/2,  y=c(0, 1, 1, 0))),
@@ -233,7 +237,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     #    }
     # else {
     
-    # Afegeixo aquest condicional if
+    # Afegeixo aquest condicional if i el loop for
     if (ncol(affected) != 1) {
         polylistD <- list()
         for (i in 2:ncol(affected)) {
@@ -244,52 +248,64 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                                      theta= -(1:4) *pi/2))
           triangle <- polyfun(i, list(x=c(-.56, .0, .56), y=c(0.32, -0.5, 0.32),    # Canvio coordenades y i valors de theta
                                       theta= -c(4, 7, 5) *pi/3))
-          polylistD[[i]] <- list(square=square, circle=circle, diamond=diamond,      # Canvio nom a polylistD
+          polylistD[[i]] <- list(square=square, circle=circle, diamond=diamond,      # Canvio nom a polylistD i la converteixo en una llista
                                  triangle=triangle)
         }
      }
 
+    
      drawbox <- function(x, y, sex, affected, status, col, polylist, polylistD,    # Afegeixo polylistD, id, age i number
                 density, angle, boxw, boxh, id, age, number) {
        
+        ###  Modifico tota la funció drawbox  ###
        
+        # Es comprova quins valors d'affected per l'individu en qüestió són diferents de 0 
         a <- which(affected != 0)
         l <- length(a)
+        
+        # Si tots els valors són 0 es genera un símbol buit
         if (l == 0) {
             polygon(x + polylist[[sex]][[1]]$x *boxw,
                     y + polylist[[sex]][[1]]$y *boxh,
                     col=NA, border=1)
         }
+        
+        # Si només un dels valors és diferent de 0, es comprova quin és el seu valor i
         else if (l == 1) {
+          
+            # si és 1 es genera un símbol amb el color i textura que correspongui
             if (affected[a] == 1) {
               polygon(x + polylist[[sex]][[1]]$x * boxw,
                       y + polylist[[sex]][[1]]$y * boxh,
                       col=col[a], border=1, density=density[a], angle=angle[a])
             }
           
+            # si és 2 es genera un símbol amb un punt al mig del color que correspongui 
             else if (affected[a] == 2) {
-                polygon(x + polylist[[sex]][[1]]$x * boxw,
-                        y + polylist[[sex]][[1]]$y * boxh,
-                        col=NA, border=1)
+              polygon(x + polylist[[sex]][[1]]$x * boxw,
+                      y + polylist[[sex]][[1]]$y * boxh,
+                      col=NA, border=1)
                  
-                midx <- x + mean(range(polylist[[sex]][[1]]$x*boxw))
-                midy <- y + mean(range(polylist[[sex]][[1]]$y*boxh))
+              midx <- x + mean(range(polylist[[sex]][[1]]$x*boxw))
+              midy <- y + mean(range(polylist[[sex]][[1]]$y*boxh))
                 
-                points(midx, midy, pch=16, cex=symbolsize, col=col[a])
+              points(midx, midy, pch=16, cex=symbolsize, col=col[a])
             }
           
+            # si és 3 es genera un símbol amb una línia vertical al mig del color que correspongui
             else if (affected[a] == 3) {
-                polygon(x + polylist[[sex]][[1]]$x * boxw,
-                        y + polylist[[sex]][[1]]$y * boxh,
-                        col=NA, border=1)
+              polygon(x + polylist[[sex]][[1]]$x * boxw,
+                      y + polylist[[sex]][[1]]$y * boxh,
+                      col=NA, border=1)
               
-                midx <- x + mean(range(polylist[[sex]][[1]]$x*boxw))
-                supy <- y + min(range(polylist[[sex]][[1]]$y*boxh))
-                infy <- y + max(range(polylist[[sex]][[1]]$y*boxh))
+              midx <- x + mean(range(polylist[[sex]][[1]]$x*boxw))
+              supy <- y + min(range(polylist[[sex]][[1]]$y*boxh))
+              infy <- y + max(range(polylist[[sex]][[1]]$y*boxh))
               
-                segments(midx, supy, midx, infy, col = col[a], lwd = symbolsize*2, lend = 1)
+              segments(midx, supy, midx, infy, col = col[a], lwd = symbolsize*2, lend = 1)
             }
           
+            # si és -1 es genera un símbol amb un interrogant al mig
             else if (affected[a] == -1) {
               polygon(x + polylist[[sex]][[1]]$x * boxw,
                       y + polylist[[sex]][[1]]$y * boxh,
@@ -298,50 +314,53 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
               midx <- x + mean(range(polylist[[sex]][[1]]$x*boxw))
               midy <- y + mean(range(polylist[[sex]][[1]]$y*boxh))
             
-              points(midx, midy, pch="?", cex=symbolsize)    # Canvio cex=min(1, cex*2/length(affected)) -> cex=symbolsize
+              points(midx, midy, pch="?", cex=symbolsize)
             }
         }
+        
+        # Si dos o més dels valors són diferents de 0
         else {
+          
+            # es llegeix cadascún d'aquests valors d'un en un. l determina el nombre de divisions del símbol
             for (i in 1:l) {
               pos <- a[i]
+              
+              # Si el valor és 1 es genera una fracció del símbol amb el color i la textura que correspongui
               if (affected[pos] == 1) {
-                polygon(x + polylistD[[l]][[sex]][[i]]$x * boxw,     # Canvio a polylistD
-                        y + polylistD[[l]][[sex]][[i]]$y * boxh,     # Canvio a polylistD
-                        col=col[pos], border=1, density=density[pos], angle=angle[pos])     # Canvio border=col -> border=1, col=col -> col=col[i] i elimino density
+                polygon(x + polylistD[[l]][[sex]][[i]]$x * boxw,     
+                        y + polylistD[[l]][[sex]][[i]]$y * boxh,    
+                        col=col[pos], border=1, density=density[pos], angle=angle[pos]) 
               }
               
-              
+              # Si el valor és -1 es genera una fracció del símbol amb un interrogant.
               else if (affected[pos] == -1) {
-                polygon(x + polylistD[[l]][[sex]][[i]]$x * boxw,     # Canvio a polylistD
-                        y + polylistD[[l]][[sex]][[i]]$y * boxh,     # Canvio a polylistD
-                        col=NA, border=1)                         # Canvio border=col -> border=1
+                polygon(x + polylistD[[l]][[sex]][[i]]$x * boxw,     
+                        y + polylistD[[l]][[sex]][[i]]$y * boxh,    
+                        col=NA, border=1)                     
                 
-                # Afegeixo condicionals per a introduir els ?
+                # Condicionals per a introduir els ?
                 if (sex == 1 | sex == 2) {
-                  midx <- x + mean(range(polylistD[[l]][[sex]][[l]]$x*boxw))     # Canvio a polylistD
-                  midy <- y + mean(range(polylistD[[l]][[sex]][[l]]$y*boxh))     # Canvio a polylistD
+                  midx <- x + mean(range(polylistD[[l]][[sex]][[l]]$x*boxw))    
+                  midy <- y + mean(range(polylistD[[l]][[sex]][[l]]$y*boxh))    
                 }
                 
                 else if (sex == 3 | sex == 4) {
-                  midx <- x + (mean(range(polylistD[[sex]][[l]]$x*boxw)) * 0.5)   # Multiplico per 0.5
+                  midx <- x + (mean(range(polylistD[[sex]][[l]]$x*boxw)) * 0.5)  
                   midy <- y + mean(range(polylistD[[sex]][[l]]$y*boxh))
                 }
-                points(midx, midy, pch="?", cex=symbolsize/(l*0.7))    # Canvio cex=min(1, cex*2/length(affected)) -> cex=symbolsize/(length(affected)*0.7)
+                points(midx, midy, pch="?", cex=symbolsize/(l*0.7))   
                 
               }
             }
             
         }
        
-       
-       
-       
-       
-       
+
+        # Es dibuixa la ratlla diagonal per a indicar si un individu està mort
         if (status==1) segments(x- .6*boxw, y+1.1*boxh, 
-                               x+ .6*boxw, y- .1*boxh,)
-        ## Do a black slash per Beth, old line was
-        ##        x+ .6*boxw, y- .1*boxh, col=col)
+                                x+ .6*boxw, y- .1*boxh)
+            ## Do a black slash per Beth, old line was
+            ##        x+ .6*boxw, y- .1*boxh, col=col)
        
         # Afegeixo aquest condicional per a indicar si es tracta d'un embaras
         else if (status == 2) {
@@ -382,7 +401,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                     status[k], col, polylist, polylistD, density, angle,     # Afegeixo polylistD
                     boxw, boxh, x$id[k], age[k], number[k])                  # Afegeixo x$id[k], age[k] i number[k]
             
-            # Afegeixo informacio
+            # Afegeixo la informacio sota el símbol
             if (!is.null(info)) {
               pos_x <- plist$pos[i,j]
               pos_y <- i + boxh + labh*dist_text
