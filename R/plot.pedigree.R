@@ -419,7 +419,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
               temp1 <- (plist$pos[i, who][who2] + target[who2])/2
               temp2 <- (plist$pos[i, who][who2+1] + target[who2])/2
                 yy <- rep(i, length(who2)) - legh/2
-                text((temp1+temp2)/2, yy, '?', cex = symbolsize * 0.5)       # Afegeixo cex = symbolsize * 0.5
+                text((temp1+temp2)/2, yy, '?', cex = symbolsize)       # Afegeixo cex = symbolsize
                 }
             
             # Add the horizontal line 
