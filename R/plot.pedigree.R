@@ -300,7 +300,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 
               }
             }
-            }
+            
         }
        
        
