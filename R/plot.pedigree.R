@@ -100,7 +100,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         if (2 %in% r | 3 %in% r) {
           c <- which(r == 2 | r == 3)[1]
           if (sum(abs(r[-c])) != 0) {
-            stop("Carrier status can only be represented for an individual if this individual is not affected by any other fenotype")
+            stop("Carrier status can only be represented for an individual if this individual is not affected by any other phenotype")
           }
         }
       }
