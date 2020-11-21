@@ -529,7 +529,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             
             # Afegeixo comprovació per que la línia vertical sigui discontinua si tots els descendents són adoptats
             if (!is.null(adopted)) {
-              if (!all(is.na(adopted[index]))) {
+              if (!any(is.na(adopted[index]))) {
                 if (all(adopted[index] == "in")) line_type2 <- 2
                 else line_type2 <- 1
               }
