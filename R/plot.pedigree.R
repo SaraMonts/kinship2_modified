@@ -1,7 +1,7 @@
 # Automatically generated from all.nw using noweb
 plot.pedigree <- function(x, id = x$id, status = x$status, 
                           affected = x$affected, age = NULL, number = NULL,     # Afegeixo age = NULL i number = NULL
-                          cex = 1, col = 1, dist_text = 1,      # Afegeixo dist_text = 1
+                          cex = 1, col = 1, dist_text = 1.5,      # Afegeixo dist_text = 1.5
                           symbolsize = 1, branch = 0.6,       
                           packed = TRUE, align = c(1.5,2), width = 8, height = 4,   # Afegeixo height = 4
                           density = -1, mar=c(4.1, 1, 4.1, 1),    # Canvio a density = -1
@@ -397,7 +397,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
        
         # Afegeixo l'edat
         if (!is.null(age)) {
-          text(x + boxw*0.5, y + boxh*1.1, age, cex = cex, adj = c(0.5, 1))
+          text(x + boxw*0.5, y + boxh*1.15, age, cex = cex, adj = c(0.5, 1))
         }
         
         # Afegeixo claudàtors si l'individu és adoptat
