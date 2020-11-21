@@ -478,6 +478,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 }
             yy <- rep(i, sum(who))
             
+            
             # Afegeixo comprovació de si els individus són adoptats o no per a dibuixar la línia vertical
             # discontinua en els casos necessaris
             if (!is.null(adopted)) {
@@ -516,18 +517,8 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 text((temp1+temp2)/2, yy, '?', cex = symbolsize * 0.75)       # Afegeixo cex = symbolsize * 0.75
                 }
             
-            # Add the horizontal line 
-            segments(min(target), i-legh, max(target), i-legh)
-
-            # Draw line to parents.  The original rule corresponded to
-            #  pconnect a large number, forcing the bottom of each parent-child
-            #  line to be at the center of the bar uniting the children.
-            if (diff(range(target)) < 2*pconnect) x1 <- mean(range(target))
-            else x1 <- pmax(min(target)+ pconnect, pmin(max(target)-pconnect, 
-                                                        parentx))
-            y1 <- i-legh
             
-            # Afegeixo comprovació per que la línia vertical sigui discontinua si tots els descendents són adoptats
+            # Afegeixo comprovació per que la línia fins als pares sigui discontinua si tots els descendents són adoptats
             if (!is.null(adopted)) {
               if (!any(is.na(adopted[index]))) {
                 if (all(adopted[index] == "in")) line_type2 <- 2
@@ -537,6 +528,17 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             }
             else line_type2 <- 1
             
+            
+            # Add the horizontal line 
+            segments(min(target), i-legh, max(target), i-legh, line_type2)     # Afegeixo lty = line_type2
+
+            # Draw line to parents.  The original rule corresponded to
+            #  pconnect a large number, forcing the bottom of each parent-child
+            #  line to be at the center of the bar uniting the children.
+            if (diff(range(target)) < 2*pconnect) x1 <- mean(range(target))
+            else x1 <- pmax(min(target)+ pconnect, pmin(max(target)-pconnect, 
+                                                        parentx))
+            y1 <- i-legh
             if(branch == 0)
                 segments(x1, y1, parentx, (i-1) + boxh/2, lty = line_type2)    # Afegeixo lty = line_type2
             else {
