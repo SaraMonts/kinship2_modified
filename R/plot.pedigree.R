@@ -527,15 +527,24 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                                                         parentx))
             y1 <- i-legh
             
+            # Afegeixo comprovació per que la línia vertical sigui discontinua si tots els descendents són adoptats
+            if (!is.null(adopted)) {
+              if (!all(is.na(adopted[index]))) {
+                if (all(adopted[index] == "in")) line_type2 <- 2
+                else line_type2 <- 1
+              }
+              else line_type2 <- 1
+            }
+            else line_type2 <- 1
             
             if(branch == 0)
-                segments(x1, y1, parentx, (i-1) + boxh/2)
+                segments(x1, y1, parentx, (i-1) + boxh/2, lty = line_type2)    # Afegeixo lty = line_type2
             else {
                 y2 <- (i-1) + boxh/2
                 x2 <- parentx
                 ydelta <- ((y2 - y1) * branch)/2
                 segments(c(x1, x1, x2), c(y1, y1 + ydelta, y2 - ydelta), 
-                         c(x1, x2, x2), c(y1 + ydelta, y2 - ydelta, y2))
+                         c(x1, x2, x2), c(y1 + ydelta, y2 - ydelta, y2), lty = line_type2)    # Afegeixo lty = line_type2
                 }
             }
         }
