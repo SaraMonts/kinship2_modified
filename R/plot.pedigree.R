@@ -481,10 +481,9 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             # Afegeixo comprovació de si els individus són adoptats o no per a dibuixar la línia vertical
             # discontinua en els casos necessaris
             if (!is.null(adopted)) {
-              ids <- plist$nid[i,who]
-              for (j in 1:length(ids)) {
-                index <- which(x$id == ids[j])
-                ad <- adopted[index]
+              index <- plist$nid[i,who]
+              for (j in 1:length(index)) {
+                ad <- adopted[index[j]]
                 p <- which(cumsum(who) == j)[1]
                 if (!is.na(ad)) {
                   if (ad == "in") {
