@@ -57,13 +57,16 @@ pedigree <- function(id, dadid, momid, sex, affected, status, relation,
         msg.n <- min(length(duplist), 6)
         stop(paste("Duplicate subject id:", duplist[1:msg.n]))
         }
+    
     findex <- match(dadid, id, nomatch = 0)
-    if(any(sex[findex] != "male")) {
-        who <- unique((id[findex])[sex[findex] != "male"])
-        msg.n <- 1:min(5, length(who))  #Don't list a zillion
-        stop(paste("Id not male, but is a father:", 
-                   paste(who[msg.n], collapse= " ")))
-        }
+    
+    # S'elimina l'error que surt si el dadid no és un home
+    #if(any(sex[findex] != "male")) {
+    #    who <- unique((id[findex])[sex[findex] != "male"])
+    #    msg.n <- 1:min(5, length(who))  #Don't list a zillion
+    #    stop(paste("Id not male, but is a father:", 
+    #               paste(who[msg.n], collapse= " ")))
+    #    }
 
     if (any(findex==0 & !nofather)) {
         who <- dadid[which(findex==0 & !nofather)]
@@ -73,12 +76,14 @@ pedigree <- function(id, dadid, momid, sex, affected, status, relation,
         }
         
     mindex <- match(momid, id, nomatch = 0)
-    if(any(sex[mindex] != "female")) {
-        who <- unique((id[mindex])[sex[mindex] != "female"])
-        msg.n <- 1:min(5, length(who))
-        stop(paste("Id not female, but is a mother:", 
-                   paste(who[msg.n], collapse = " ")))
-        }
+    
+    # S'elimina l'error que surt de el momid no és una dona
+    #if(any(sex[mindex] != "female")) {
+    #    who <- unique((id[mindex])[sex[mindex] != "female"])
+    #    msg.n <- 1:min(5, length(who))
+    #    stop(paste("Id not female, but is a mother:", 
+    #               paste(who[msg.n], collapse = " ")))
+    #    }
 
     if (any(mindex==0 & !nomother)) {
         who <- momid[which(mindex==0 & !nomother)]
@@ -179,9 +184,9 @@ pedigree <- function(id, dadid, momid, sex, affected, status, relation,
             }
         
         if (!is.numeric(code))
-            code <- match(code, c("MZ twin", "DZ twin", "UZ twin", "spouse"))
-        else code <- factor(code, levels=1:4,
-                            labels=c("MZ twin", "DZ twin", "UZ twin", "spouse"))
+            code <- match(code, c("MZ twin", "DZ twin", "UZ twin", "spouse", "bio.parents", "adopt.parents"))    # Afegeixo "bio.parents", "adopt.parents"
+        else code <- factor(code, levels=1:6,
+                            labels=c("MZ twin", "DZ twin", "UZ twin", "spouse", "bio.parents", "adopt.parents"))    # Afegeixo "bio.parents", "adopt.parents"
         if (any(is.na(code)))
             stop("Invalid relationship code")
          
@@ -201,7 +206,7 @@ pedigree <- function(id, dadid, momid, sex, affected, status, relation,
             stop("Subjects in relationships that are not in the pedigree")
         if (any(temp1==temp2)) {
             who <- temp1[temp1==temp2]
-            stop(paste("Subject", id[who], "is their own spouse or twin"))
+            stop(paste("Subject", id[who], "is their own spouse, twin or parent"))    # Afegeixo or parent
             }
 
         # Check, are the twins really twins?
