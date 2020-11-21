@@ -482,15 +482,18 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             # discontinua en els casos necessaris
             if (!is.null(adopted)) {
               index <- plist$nid[i,who]
+              line_type <- c()
+              p <- c()
               for (j in 1:length(index)) {
                 ad <- adopted[index[j]]
-                p <- which(cumsum(who) == j)[1]
+                p[j] <- which(cumsum(who) == j)[1]
                 if (!is.na(ad)) {
-                  if (ad == "in") segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh, lty = 2)
-                  else if (ad == "out") segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh)
+                  if (ad == "in") line_type[j] <- 2
+                  else if (ad == "out") line_type[j] <- 1
                 }
-                else segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh)
+                else line_type[j] <- 1
               }
+              segments(plist$pos[i,p], yy, target, yy - legh, lty = line_type)
             }
             else segments(plist$pos[i,who], yy, target, yy-legh)
             
@@ -523,6 +526,8 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             else x1 <- pmax(min(target)+ pconnect, pmin(max(target)-pconnect, 
                                                         parentx))
             y1 <- i-legh
+            
+            
             if(branch == 0)
                 segments(x1, y1, parentx, (i-1) + boxh/2)
             else {
