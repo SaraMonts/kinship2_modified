@@ -478,18 +478,22 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             
             # Afegeixo comprovació de si els individus són adoptats o no per a dibuixar la ratlla vertical
             # discontinua en els casos necessaris
-            ids <- plist$nid[i,who]
-            for (j in 1:length(ids)) {
-              p <- which(cumsum(who) == j)[1]
-              if (adopted[x$id == ids[j]] == "in") {
-                segments(plits$pos[i,p], yy[j], target[j], yy[j] - legh, lty = 2)
-              }
-              else {
-                segments(plits$pos[i,p], yy[j], target[j], yy[j] - legh)
+            if (!is.null(adopted)) {
+              ids <- plist$nid[i,who]
+              for (j in 1:length(ids)) {
+                p <- which(cumsum(who) == j)[1]
+                if (adopted[x$id == ids[j]] == "in") {
+                  segments(plits$pos[i,p], yy[j], target[j], yy[j] - legh, lty = 2)
+                }
+                else {
+                  segments(plits$pos[i,p], yy[j], target[j], yy[j] - legh)
+                }
               }
             }
+            else {
+              segments(plist$pos[i,who], yy, target, yy-legh)
+            }
             
-            #segments(plist$pos[i,who], yy, target, yy-legh)
                       
             ## draw midpoint MZ twin line
             if (any(plist$twins[i,who] ==1)) {
