@@ -487,7 +487,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 p <- which(cumsum(who) == j)[1]
                 if (!is.na(ad)) {
                   if (ad == "in") segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh, lty = 2)
-                  else segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh)
+                  else if (ad == "out") segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh)
                 }
                 else segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh)
               }
