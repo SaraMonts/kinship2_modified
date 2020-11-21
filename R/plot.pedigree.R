@@ -486,18 +486,13 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 ad <- adopted[index[j]]
                 p <- which(cumsum(who) == j)[1]
                 if (!is.na(ad)) {
-                  if (ad == "in") {
-                    segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh, lty = 2)
-                  }
+                  if (ad == "in") segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh, lty = 2)
+                  else segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh)
                 }
-                else {
-                  segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh)
-                }
+                else segments(plist$pos[i,p], yy[j], target[j], yy[j] - legh)
               }
             }
-            else {
-              segments(plist$pos[i,who], yy, target, yy-legh)
-            }
+            else segments(plist$pos[i,who], yy, target, yy-legh)
             
                       
             ## draw midpoint MZ twin line
