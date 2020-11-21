@@ -481,8 +481,8 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             if (!is.null(adopted)) {
               ids <- plist$nid[i,who]
               for (j in 1:length(ids)) {
+                ad <- adopted[x$id == as.character(ids[j])]
                 p <- which(cumsum(who) == j)[1]
-                ad <- adopted[x$id == ids[j]]
                 if (!is.na(ad)) {
                   if (ad == "in") {
                     segments(plits$pos[i,p], yy[j], target[j], yy[j] - legh, lty = 2)
