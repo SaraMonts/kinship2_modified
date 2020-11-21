@@ -391,7 +391,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         if (!is.null(consultand)) {
           for (i in 1:length(consultand)){
             if (id == consultand[i])
-              arrows(x - boxw, y + boxh*1.5, x - boxw*0.6, y + boxh*1.1, lwd = 2+(symbolsize*0.25), length = symbolsize/13, angle = 20)
+              arrows(x - boxw, y + boxh*1.5, x - boxw*0.65, y + boxh*1.15, lwd = 2+(symbolsize*0.25), length = symbolsize/13, angle = 20)
           }
         }
        
