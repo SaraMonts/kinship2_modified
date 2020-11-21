@@ -6,7 +6,8 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                           packed = TRUE, align = c(1.5,2), width = 8, height = 4,   # Afegeixo height = 4
                           density = -1, mar=c(4.1, 1, 4.1, 1),    # Canvio a density = -1
                           angle = 90, keep.par=FALSE,          # Canvio a angle = 90
-                          subregion, pconnect=.5, consultand = NULL, info = NULL, ...)     # Afegeixo consultand = NULL i info = NULL
+                          subregion, pconnect=.5, consultand = NULL, info = NULL,      # Afegeixo consultand = NULL i info = NULL
+                          adopted = NULL, ...)     # Afegeixo adopted = NULL
 {
     Call <- match.call()
     n <- length(x$id)        
@@ -56,7 +57,6 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
 
     
     # Canvio les comprovacions de l'argument col
-    # Abans tambe: if (length(col) == 1) col <- rep(col, n)
     if (length(col) != ncol(affected)) stop("col argument must have length equal to number of columns of affected")
     
     # Afegeixo comprovacio de consultand
@@ -103,6 +103,16 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             stop("Carrier status can only be represented for an individual if this individual is not affected by any other phenotype")
           }
         }
+      }
+    }
+    
+    # Afegeixo comprovació de adopted
+    if (!is.null(adopted)) {
+      if (length(adopted) != n) {
+        stop("Wrong length for adopted")
+      }
+      if (!all(is.na(adopted) | adopted == "in" | adopted == "out")) {
+        stop("Wrong value for adopted status")
       }
     }
     
@@ -254,8 +264,8 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
      }
 
     
-     drawbox <- function(x, y, sex, affected, status, col, polylist, polylistD,    # Afegeixo polylistD, id, age i number
-                density, angle, boxw, boxh, id, age, number) {
+     drawbox <- function(x, y, sex, affected, status, col, polylist, polylistD,    # Afegeixo polylistD, id, age, number i adopted
+                density, angle, boxw, boxh, id, age, number, adopted) {
        
         ###  Modifico tota la funció drawbox  ###
        
@@ -389,6 +399,18 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         if (!is.null(age)) {
           text(x + boxw*0.5, y + boxh*1.1, age, cex = cex, adj = c(0.5, 1))
         }
+        
+        # Afegeixo claudàtors si l'individu és adoptat
+        if (!is.null(adopted)) {
+          if (adopted == "in" | adopted == "out") {
+            segments(x - 0.6*boxw, y - 0.1*boxh, x - 0.6*boxw, y + 1.1*boxh)
+            segments(x - 0.6*boxw, y - 0.1*boxh, x - 0.3*boxw, y - 0.1*boxh)
+            segments(x - 0.6*boxw, y + 1.1*boxh, x - 0.3*boxw, y + 1.1*boxh)
+            segments(x + 0.6*boxw, y - 0.1*boxh, x + 0.6*boxw, y + 1.1*boxh)
+            segments(x + 0.6*boxw, y - 0.1*boxh, x + 0.3*boxw, y - 0.1*boxh)
+            segments(x + 0.6*boxw, y + 1.1*boxh, x + 0.3*boxw, y + 1.1*boxh)
+          }
+        }
        
      }
 
@@ -399,7 +421,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             k <- plist$nid[i,j]
             drawbox(plist$pos[i,j], i, sex[k], affected[k,],
                     status[k], col, polylist, polylistD, density, angle,     # Afegeixo polylistD
-                    boxw, boxh, x$id[k], age[k], number[k])                  # Afegeixo x$id[k], age[k] i number[k]
+                    boxw, boxh, x$id[k], age[k], number[k], adopted[k])      # Afegeixo x$id[k], age[k], number[k] i adopted[k]
             
             # Afegeixo la informacio sota el símbol
             if (!is.null(info)) {
@@ -453,7 +475,21 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 target <- rep(tapply(plist$pos[i,who], temp, mean), tcount)
                 }
             yy <- rep(i, sum(who))
-            segments(plist$pos[i,who], yy, target, yy-legh)
+            
+            # Afegeixo comprovació de si els individus són adoptats o no per a dibuixar la ratlla vertical
+            # discontinua en els casos necessaris
+            ids <- plist$nid[i,who]
+            for (j in 1:length(ids)) {
+              p <- which(cumsum(who) == j)[1]
+              if (adopted[x$id == ids[j]] == "in") {
+                segments(plits$pos[i,p], yy[j], target[j], yy[j] - legh, lty = 2)
+              }
+              else {
+                segments(plits$pos[i,p], yy[j], target[j], yy[j] - legh)
+              }
+            }
+            
+            #segments(plist$pos[i,who], yy, target, yy-legh)
                       
             ## draw midpoint MZ twin line
             if (any(plist$twins[i,who] ==1)) {
