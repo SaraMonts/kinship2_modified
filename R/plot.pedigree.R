@@ -401,7 +401,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         }
         
         # Afegeixo claudàtors si l'individu és adoptat
-        if (!is.null(adopted)) {
+        if (!is.null(adopted) & !is.na(adopted)) {
           if (adopted == "in" | adopted == "out") {
             segments(x - 0.6*boxw, y - 0.1*boxh, x - 0.6*boxw, y + 1.1*boxh)
             segments(x - 0.6*boxw, y - 0.1*boxh, x - 0.3*boxw, y - 0.1*boxh)
