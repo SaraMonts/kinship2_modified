@@ -401,14 +401,16 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         }
         
         # Afegeixo claudàtors si l'individu és adoptat
-        if (!is.null(adopted) & !is.na(adopted)) {
-          if (adopted == "in" | adopted == "out") {
-            segments(x - 0.6*boxw, y - 0.1*boxh, x - 0.6*boxw, y + 1.1*boxh)
-            segments(x - 0.6*boxw, y - 0.1*boxh, x - 0.3*boxw, y - 0.1*boxh)
-            segments(x - 0.6*boxw, y + 1.1*boxh, x - 0.3*boxw, y + 1.1*boxh)
-            segments(x + 0.6*boxw, y - 0.1*boxh, x + 0.6*boxw, y + 1.1*boxh)
-            segments(x + 0.6*boxw, y - 0.1*boxh, x + 0.3*boxw, y - 0.1*boxh)
-            segments(x + 0.6*boxw, y + 1.1*boxh, x + 0.3*boxw, y + 1.1*boxh)
+        if (!is.null(adopted)) {
+          if (!is.na(adopted)) {
+            if (adopted == "in" | adopted == "out") {
+              segments(x - 0.6*boxw, y - 0.1*boxh, x - 0.6*boxw, y + 1.1*boxh)
+              segments(x - 0.6*boxw, y - 0.1*boxh, x - 0.3*boxw, y - 0.1*boxh)
+              segments(x - 0.6*boxw, y + 1.1*boxh, x - 0.3*boxw, y + 1.1*boxh)
+              segments(x + 0.6*boxw, y - 0.1*boxh, x + 0.6*boxw, y + 1.1*boxh)
+              segments(x + 0.6*boxw, y - 0.1*boxh, x + 0.3*boxw, y - 0.1*boxh)
+              segments(x + 0.6*boxw, y + 1.1*boxh, x + 0.3*boxw, y + 1.1*boxh)
+            }
           }
         }
        
@@ -476,12 +478,13 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                 }
             yy <- rep(i, sum(who))
             
-            # Afegeixo comprovació de si els individus són adoptats o no per a dibuixar la ratlla vertical
+            # Afegeixo comprovació de si els individus són adoptats o no per a dibuixar la línia vertical
             # discontinua en els casos necessaris
             if (!is.null(adopted)) {
               ids <- plist$nid[i,who]
               for (j in 1:length(ids)) {
-                ad <- adopted[x$id == as.character(ids[j])]
+                index <- which(x$id == ids[j])
+                ad <- adopted[index]
                 p <- which(cumsum(who) == j)[1]
                 if (!is.na(ad)) {
                   if (ad == "in") {
