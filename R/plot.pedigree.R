@@ -530,7 +530,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             
             
             # Add the horizontal line 
-            segments(min(target), i-legh, max(target), i-legh, line_type2)     # Afegeixo lty = line_type2
+            segments(min(target), i-legh, max(target), i-legh, lty = line_type2)     # Afegeixo lty = line_type2
 
             # Draw line to parents.  The original rule corresponded to
             #  pconnect a large number, forcing the bottom of each parent-child
