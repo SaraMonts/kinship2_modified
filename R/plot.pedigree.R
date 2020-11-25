@@ -162,6 +162,9 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     
     plist <- align.pedigree(x, packed = packed, width = width, align = align)
     if (!missing(subregion)) plist <- subregion2(plist, subregion)
+    
+    if (all(plist$nid == 0)) stop("The plot can not be generated until at least 3 individuals are connected")
+    
     xrange <- range(plist$pos[plist$nid >0])
     maxlev <- nrow(plist$pos)
     frame()
@@ -184,8 +187,6 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     labh  <- stemp2/vscale   # height of a text string
     legh  <- min(1/4, boxh  *1.5)  # how tall are the 'legs' up from a child
     
-    # Afegeixo comprovació de que hi hagi com a mínim 3 persones connectades per a generar el gràfic
-    if (is.null(xrange) | is.null(maxlev)) stop("The plot can not be generated until at least 3 individuals are connected")
     
     par(usr=c(xrange[1]- boxw/2, xrange[2]+ boxw/2, 
               maxlev+ boxh+ stemp3 + stemp2/2 , 1))
