@@ -183,6 +183,10 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     boxh  <- boxsize/vscale   # box height in user units
     labh  <- stemp2/vscale   # height of a text string
     legh  <- min(1/4, boxh  *1.5)  # how tall are the 'legs' up from a child
+    
+    # Afegeixo comprovació de que hi hagi com a mínim 3 persones connectades per a generar el gràfic
+    if (is.null(xrange) | is.null(maxlev)) stop("The plot can not be generated until at least 3 individuals are connected")
+    
     par(usr=c(xrange[1]- boxw/2, xrange[2]+ boxw/2, 
               maxlev+ boxh+ stemp3 + stemp2/2 , 1))
     circfun <- function(nslice, n=50) {
@@ -461,12 +465,22 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         zed <- zed[zed > 0]  #list of family ids
         
         for(fam in zed) {
+          
+            # 
+            who <- (plist$fam[i,] == fam)  #The kids of interest
+            index <- plist$nid[i,who]
+            #mindex <- x$mindex[index]
+            #findex <- x$findex[index]
+            #if (mindex == 0 | findex == 0) {
+            #  
+            #}
+            
             xx <- plist$pos[i - 1, fam + 0:1]
             parentx <- mean(xx)   #midpoint of parents
 
 
             # Draw the uplines
-            who <- (plist$fam[i,] == fam) #The kids of interest
+            
             if (is.null(plist$twins)) target <- plist$pos[i,who]
             else {
                 twin.to.left <-(c(0, plist$twins[i,who])[1:sum(who)])
@@ -482,7 +496,6 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
             # Afegeixo comprovació de si els individus són adoptats o no per a dibuixar la línia vertical
             # discontinua en els casos necessaris
             if (!is.null(adopted)) {
-              index <- plist$nid[i,who]
               line_type <- c()
               p <- c()
               for (j in 1:length(index)) {
@@ -579,7 +592,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                    boxw=boxw, boxh=boxh, call=Call))
     
     
-    
+
 }
 
 
