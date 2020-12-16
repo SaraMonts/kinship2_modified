@@ -1,6 +1,6 @@
 
 ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 1, symbolsize = 1, 
-                   width = 8, density = -1, angle = 90, height = 4)
+                       width = 10, height = 4, density = -1, angle = 45)
 {
   ped <- as.data.frame.pedigree(x[as.character(ped_id)])
   
@@ -290,8 +290,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
     }
   }
   
-  
-  #y1 <- seq(1, col1, 0.5)
+
   
   for (i in 1:col1) {
     if (!is.null(sexes)) {
@@ -299,6 +298,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
         drawbox(2, i, sexes[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
         drawbox(3, i, sexes[2], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
         drawbox(4, i, sexes[3], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
+        text(6, i + boxh/2, "Woman, man and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
       }
       else if (length(sexes) == 2) {
         drawbox(3, i, sexes[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
@@ -371,8 +371,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   }
   
   
-  
-  #y2 <- seq(1, col2, 0.5)
+
   
   for (i in 1:col2) {
     if (!is.null(phen1)) {
