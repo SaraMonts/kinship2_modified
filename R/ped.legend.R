@@ -123,6 +123,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   if (!is.null(pregnancies)) col1 <- col1 + 1
   if (!is.null(abortions)) col1 <- col1 + 1
   if (!is.null(adopteds)) col1 <- col1 + 1
+  col1 <- col1 / 2 + 0.5
   
   col2 <- 0
   if (!is.null(phen1)) col2 <- col2 + 1
@@ -137,29 +138,8 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   if (!is.null(phen4)) col2 <- col2 + 1
   if (!is.null(carriers4)) col2 <- col2 + 1
   if (!is.null(presymp4)) col2 <- col2 + 1
+  col2 <- col2 / 2 + 0.5
   
-  
-  print(sexes)
-  print(str(sexes))
-  print(deceased)
-  print(pregnancies)
-  print(abortions)
-  print(adopteds)
-  print(phen1)
-  print(carriers1)
-  print(presymp1)
-  print(phen2)
-  print(carriers2)
-  print(presymp2)
-  print(phen3)
-  print(carriers3)
-  print(presymp3)
-  print(phen4)
-  print(carriers4)
-  print(presymp4)
-  
-  print(col1)
-  print(col2)
   
   
   
@@ -167,7 +147,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   xrange <- c(1, 2)
   maxlev <- max(col1, col2)
   frame()
-  oldpar <- par(mar=c(4.1, 1, 4.1, 1), pin=c(width-2, maxlev), xpd=TRUE)
+  oldpar <- par(mar=c(4.1, 1, 4.1, 1), pin=c(width-2, maxlev+1), xpd=TRUE)
   psize <- par('pin')  # plot region in inches
   stemp1 <- strwidth("ABC", units='inches', cex=1)* 2.5/3
   stemp2 <- strheight('1g', units='inches', cex=1)
@@ -182,7 +162,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   hscale <- (psize[1]- boxsize)/diff(xrange)  #horizontal scale from user-> inch
   vscale <- (psize[2]-(stemp3 + stemp2/2 + boxsize))/ max(1, maxlev-1)
   boxw  <- boxsize/hscale  # box width in user units
-  boxh  <- boxsize/vscale   # box height in user units
+  boxh  <- boxw   # box height in user units
   labh  <- stemp2/vscale   # height of a text string
   
   par(usr=c(xrange[1] - 0.5, xrange[2] + 0.5, 
@@ -311,9 +291,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   }
   
   
+  y1 <- seq(1, col1, 0.5)
   
-  
-  for (i in 1:col1) {
+  for (i in y1) {
     if (!is.null(sexes)) {
       if (length(sexes) == 3) {
         drawbox(1-0.3, i, sexes[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
@@ -392,7 +372,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   
   
   
-  for (i in 1:col2) {
+  y2 <- seq(1, col2, 0.5)
+  
+  for (i in y2) {
     if (!is.null(phen1)) {
       if (length(phen1) == 4) {
         drawbox(2-0.4, i, phen1[1], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
