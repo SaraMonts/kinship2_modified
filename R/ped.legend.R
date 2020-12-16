@@ -1,19 +1,19 @@
 
-legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 1, symbolsize = 1, 
+ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 1, symbolsize = 1, 
                    width = 8, density = -1, angle = 90)
 {
-  df <- as.data.frame.pedigree(x[as.character(ped_id)])
+  ped <- as.data.frame.pedigree(x[as.character(ped_id)])
   
-  if (!is.null(df$affected1)) aff1 <- df$affected1
-  else aff1 <- rep(0, nrow(df))
-  if (!is.null(df$affected2)) aff2 <- df$affected2
-  else aff2 <- rep(0, nrow(df))
-  if (!is.null(df$affected3)) aff3 <- df$affected3
-  else aff3 <- rep(0, nrow(df))
-  if (!is.null(df$affected4)) aff4 <- df$affected4
-  else aff4 <- rep(0, nrow(df))
+  if (!is.null(ped$affected1)) aff1 <- ped$affected1
+  else aff1 <- rep(0, nrow(ped))
+  if (!is.null(ped$affected2)) aff2 <- ped$affected2
+  else aff2 <- rep(0, nrow(ped))
+  if (!is.null(ped$affected3)) aff3 <- ped$affected3
+  else aff3 <- rep(0, nrow(ped))
+  if (!is.null(ped$affected4)) aff4 <- ped$affected4
+  else aff4 <- rep(0, nrow(ped))
   
-  df <- data.frame(sex = df$sex, status = df$status, adopted = adopted, affected1 = aff1, 
+  df <- data.frame(sex = ped$sex, status = ped$status, adopted = adopted, affected1 = aff1, 
                    affected2 = aff2, affected3 = aff3, affected4 = aff4)
   
   df <- unique(df)
