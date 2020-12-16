@@ -316,75 +316,75 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   for (i in 1:col1) {
     if (!is.null(sexes)) {
       if (length(sexes) == 3) {
-        drawbox(1-0.3, i, sexes[1], 0, 0, NA, polylist, NA, NA, boxw, boxh, NA)
-        drawbox(1-0.2, i, sexes[2], 0, 0, NA, polylist, NA, NA, boxw, boxh, NA)
-        drawbox(1-0.1, i, sexes[3], 0, 0, NA, polylist, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.3, i, sexes[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.2, i, sexes[2], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.1, i, sexes[3], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
       }
       else if (length(sexes) == 2) {
-        drawbox(1-0.2, i, sexes[1], 0, 0, NA, polylist, NA, NA, boxw, boxh, NA)
-        drawbox(1-0.1, i, sexes[2], 0, 0, NA, polylist, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.2, i, sexes[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.1, i, sexes[2], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
       }
       else if (length(sexes) == 1) {
-        drawbox(1-0.1, i, sexes[1], 0, 0, NA, polylist, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.1, i, sexes[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
       }
       sexes <- NULL
     }
     
     else if (!is.null(deceased)) {
       if (length(deceased) == 3) {
-        drawbox(1-0.3, i, deceased[1], 1, 0, NA, polylist, NA, NA, boxw, boxh, NA)
-        drawbox(1-0.2, i, deceased[2], 1, 0, NA, polylist, NA, NA, boxw, boxh, NA)
-        drawbox(1-0.1, i, deceased[3], 1, 0, NA, polylist, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.3, i, deceased[1], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.2, i, deceased[2], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.1, i, deceased[3], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
       }
       else if (length(deceased) == 2) {
-        drawbox(1-0.2, i, deceased[1], 1, 0, NA, polylist, NA, NA, boxw, boxh, NA)
-        drawbox(1-0.1, i, deceased[2], 1, 0, NA, polylist, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.2, i, deceased[1], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.1, i, deceased[2], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
       }
       else if (length(deceased) == 1) {
-        drawbox(1-0.1, i, deceased[1], 1, 0, NA, polylist, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.1, i, deceased[1], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
       }
       deceased <- NULL
     }
     
     else if (!is.null(pregnancies)) {
       if (length(pregnancies) == 3) {
-        drawbox(1-0.3, i, pregnancies[1], 2, 0, NA, polylist, NA, NA, boxw, boxh, NA)
-        drawbox(1-0.2, i, pregnancies[2], 2, 0, NA, polylist, NA, NA, boxw, boxh, NA)
-        drawbox(1-0.1, i, pregnancies[3], 2, 0, NA, polylist, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.3, i, pregnancies[1], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.2, i, pregnancies[2], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.1, i, pregnancies[3], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
       }
       else if (length(pregnancies) == 2) {
-        drawbox(1-0.2, i, pregnancies[1], 2, 0, NA, polylist, NA, NA, boxw, boxh, NA)
-        drawbox(1-0.1, i, pregnancies[2], 2, 0, NA, polylist, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.2, i, pregnancies[1], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.1, i, pregnancies[2], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
       }
       else if (length(pregnancies) == 1) {
-        drawbox(1-0.1, i, pregnancies[1], 2, 0, NA, polylist, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.1, i, pregnancies[1], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
       }
       pregnancies <- NULL
     }
     
     else if (!is.null(abortions)) {
       if (length(abortions) == 2) {
-        drawbox(1-0.2, i, 4, abortions[1], 0, NA, polylist, NA, NA, boxw, boxh, NA)
-        drawbox(1-0.1, i, 4, abortions[2], 0, NA, polylist, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.2, i, 4, abortions[1], 0, polylist, NA, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.1, i, 4, abortions[2], 0, polylist, NA, NA, NA, boxw, boxh, NA)
       }
       else if (length(abortions) == 1) {
-        drawbox(1-0.1, i, 4, abortions[1], 0, NA, polylist, NA, NA, boxw, boxh, NA)
+        drawbox(1-0.1, i, 4, abortions[1], 0, polylist, NA, NA, NA, boxw, boxh, NA)
       }
       abortions <- NULL
     }
     
     else if (!is.null(adopteds)) {
       if (length(adopteds) == 3) {
-        drawbox(1-0.3, i, adopteds[1], 0, 0, NA, polylist, NA, NA, boxw, boxh, "in")
-        drawbox(1-0.2, i, adopteds[2], 0, 0, NA, polylist, NA, NA, boxw, boxh, "in")
-        drawbox(1-0.1, i, adopteds[3], 0, 0, NA, polylist, NA, NA, boxw, boxh, "in")
+        drawbox(1-0.3, i, adopteds[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
+        drawbox(1-0.2, i, adopteds[2], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
+        drawbox(1-0.1, i, adopteds[3], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
       }
       else if (length(adopteds) == 2) {
-        drawbox(1-0.2, i, adopteds[1], 0, 0, NA, polylist, NA, NA, boxw, boxh, "in")
-        drawbox(1-0.1, i, adopteds[2], 0, 0, NA, polylist, NA, NA, boxw, boxh, "in")
+        drawbox(1-0.2, i, adopteds[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
+        drawbox(1-0.1, i, adopteds[2], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
       }
       else if (length(adopteds) == 1) {
-        drawbox(1-0.1, i, adopteds[1], 0, 0, NA, polylist, NA, NA, boxw, boxh, "in")
+        drawbox(1-0.1, i, adopteds[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
       }
       adopteds <- NULL
     }
@@ -395,264 +395,264 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   for (i in 1:col2) {
     if (!is.null(phen1)) {
       if (length(phen1) == 4) {
-        drawbox(2-0.4, i, phen1[1], 0, 1, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.3, i, phen1[2], 0, 1, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.2, i, phen1[3], 0, 1, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen1[4], 0, 1, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.4, i, phen1[1], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.3, i, phen1[2], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen1[3], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen1[4], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       else if (length(phen1) == 3) {
-        drawbox(2-0.3, i, phen1[1], 0, 1, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.2, i, phen1[2], 0, 1, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen1[3], 0, 1, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.3, i, phen1[1], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen1[2], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen1[3], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       else if (length(phen1) == 2) {
-        drawbox(2-0.2, i, phen1[1], 0, 1, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen1[2], 0, 1, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen1[1], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen1[2], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       else if (length(phen1) == 1) {
-        drawbox(2-0.1, i, phen1[1], 0, 1, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen1[1], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       phen1 <- NULL
     }
     
     else if (!is.null(carriers1)) {
       if (length(carriers1) == 4) {
-        drawbox(2-0.4, i, carriers1[1], 0, 2, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.3, i, carriers1[2], 0, 2, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.2, i, carriers1[3], 0, 2, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers1[4], 0, 2, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.4, i, carriers1[1], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.3, i, carriers1[2], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers1[3], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers1[4], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       else if (length(carriers1) == 3) {
-        drawbox(2-0.3, i, carriers1[1], 0, 2, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.2, i, carriers1[2], 0, 2, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers1[3], 0, 2, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.3, i, carriers1[1], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers1[2], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers1[3], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       else if (length(carriers1) == 2) {
-        drawbox(2-0.2, i, carriers1[1], 0, 2, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers1[2], 0, 2, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers1[1], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers1[2], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       else if (length(carriers1) == 1) {
-        drawbox(2-0.1, i, carriers1[1], 0, 2, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers1[1], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       carriers1 <- NULL
     }
     
     else if (!is.null(presymp1)) {
       if (length(presymp1) == 4) {
-        drawbox(2-0.4, i, presymp1[1], 0, 3, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.3, i, presymp1[2], 0, 3, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.2, i, presymp1[3], 0, 3, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp1[4], 0, 3, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.4, i, presymp1[1], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.3, i, presymp1[2], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp1[3], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp1[4], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       else if (length(presymp1) == 3) {
-        drawbox(2-0.3, i, presymp1[1], 0, 3, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.2, i, presymp1[2], 0, 3, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp1[3], 0, 3, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.3, i, presymp1[1], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp1[2], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp1[3], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       else if (length(presymp1) == 2) {
-        drawbox(2-0.2, i, presymp1[1], 0, 3, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp1[2], 0, 3, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp1[1], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp1[2], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       else if (length(presymp1) == 1) {
-        drawbox(2-0.1, i, presymp1[1], 0, 3, col[1], polylist, density[1], angle[1], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp1[1], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
       presymp1 <- NULL
     }
     
     else if (!is.null(phen2)) {
       if (length(phen2) == 4) {
-        drawbox(2-0.4, i, phen2[1], 0, 1, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.3, i, phen2[2], 0, 1, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.2, i, phen2[3], 0, 1, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen2[4], 0, 1, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.4, i, phen2[1], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.3, i, phen2[2], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen2[3], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen2[4], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       else if (length(phen2) == 3) {
-        drawbox(2-0.3, i, phen2[1], 0, 1, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.2, i, phen2[2], 0, 1, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen2[3], 0, 1, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.3, i, phen2[1], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen2[2], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen2[3], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       else if (length(phen2) == 2) {
-        drawbox(2-0.2, i, phen2[1], 0, 1, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen2[2], 0, 1, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen2[1], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen2[2], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       else if (length(phen2) == 1) {
-        drawbox(2-0.1, i, phen2[1], 0, 1, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen2[1], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       phen2 <- NULL
     }
     
     else if (!is.null(carriers2)) {
       if (length(carriers2) == 4) {
-        drawbox(2-0.4, i, carriers2[1], 0, 2, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.3, i, carriers2[2], 0, 2, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.2, i, carriers2[3], 0, 2, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers2[4], 0, 2, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.4, i, carriers2[1], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.3, i, carriers2[2], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers2[3], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers2[4], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       else if (length(carriers2) == 3) {
-        drawbox(2-0.3, i, carriers2[1], 0, 2, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.2, i, carriers2[2], 0, 2, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers2[3], 0, 2, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.3, i, carriers2[1], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers2[2], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers2[3], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       else if (length(carriers2) == 2) {
-        drawbox(2-0.2, i, carriers2[1], 0, 2, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers2[2], 0, 2, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers2[1], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers2[2], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       else if (length(carriers2) == 1) {
-        drawbox(2-0.1, i, carriers2[1], 0, 2, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers2[1], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       carriers2 <- NULL
     }
     
     else if (!is.null(presymp2)) {
       if (length(presymp2) == 4) {
-        drawbox(2-0.4, i, presymp2[1], 0, 3, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.3, i, presymp2[2], 0, 3, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.2, i, presymp2[3], 0, 3, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp2[4], 0, 3, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.4, i, presymp2[1], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.3, i, presymp2[2], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp2[3], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp2[4], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       else if (length(presymp2) == 3) {
-        drawbox(2-0.3, i, presymp2[1], 0, 3, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.2, i, presymp2[2], 0, 3, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp2[3], 0, 3, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.3, i, presymp2[1], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp2[2], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp2[3], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       else if (length(presymp2) == 2) {
-        drawbox(2-0.2, i, presymp2[1], 0, 3, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp2[2], 0, 3, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp2[1], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp2[2], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       else if (length(presymp2) == 1) {
-        drawbox(2-0.1, i, presymp2[1], 0, 3, col[2], polylist, density[2], angle[2], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp2[1], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
       presymp2 <- NULL
     }
     
     else if (!is.null(phen3)) {
       if (length(phen3) == 4) {
-        drawbox(2-0.4, i, phen3[1], 0, 1, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.3, i, phen3[2], 0, 1, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.2, i, phen3[3], 0, 1, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen3[4], 0, 1, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.4, i, phen3[1], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.3, i, phen3[2], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen3[3], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen3[4], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       else if (length(phen3) == 3) {
-        drawbox(2-0.3, i, phen3[1], 0, 1, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.2, i, phen3[2], 0, 1, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen3[3], 0, 1, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.3, i, phen3[1], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen3[2], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen3[3], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       else if (length(phen3) == 2) {
-        drawbox(2-0.2, i, phen3[1], 0, 1, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen3[2], 0, 1, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen3[1], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen3[2], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       else if (length(phen3) == 1) {
-        drawbox(2-0.1, i, phen3[1], 0, 1, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen3[1], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       phen3 <- NULL
     }
     
     else if (!is.null(carriers3)) {
       if (length(carriers3) == 4) {
-        drawbox(2-0.4, i, carriers3[1], 0, 2, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.3, i, carriers3[2], 0, 2, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.2, i, carriers3[3], 0, 2, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers3[4], 0, 2, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.4, i, carriers3[1], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.3, i, carriers3[2], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers3[3], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers3[4], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       else if (length(carriers3) == 3) {
-        drawbox(2-0.3, i, carriers3[1], 0, 2, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.2, i, carriers3[2], 0, 2, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers3[3], 0, 2, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.3, i, carriers3[1], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers3[2], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers3[3], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       else if (length(carriers3) == 2) {
-        drawbox(2-0.2, i, carriers3[1], 0, 2, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers3[2], 0, 2, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers3[1], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers3[2], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       else if (length(carriers3) == 1) {
-        drawbox(2-0.1, i, carriers3[1], 0, 2, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers3[1], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       carriers3 <- NULL
     }
     
     else if (!is.null(presymp3)) {
       if (length(presymp3) == 4) {
-        drawbox(2-0.4, i, presymp3[1], 0, 3, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.3, i, presymp3[2], 0, 3, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.2, i, presymp3[3], 0, 3, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp3[4], 0, 3, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.4, i, presymp3[1], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.3, i, presymp3[2], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp3[3], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp3[4], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       else if (length(presymp3) == 3) {
-        drawbox(2-0.3, i, presymp3[1], 0, 3, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.2, i, presymp3[2], 0, 3, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp3[3], 0, 3, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.3, i, presymp3[1], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp3[2], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp3[3], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       else if (length(presymp3) == 2) {
-        drawbox(2-0.2, i, presymp3[1], 0, 3, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp3[2], 0, 3, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp3[1], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp3[2], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       else if (length(presymp3) == 1) {
-        drawbox(2-0.1, i, presymp3[1], 0, 3, col[3], polylist, density[3], angle[3], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp3[1], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
       presymp3 <- NULL
     }
     
     else if (!is.null(phen4)) {
       if (length(phen4) == 4) {
-        drawbox(2-0.4, i, phen4[1], 0, 1, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.3, i, phen4[2], 0, 1, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.2, i, phen4[3], 0, 1, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen4[4], 0, 1, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.4, i, phen4[1], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.3, i, phen4[2], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen4[3], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen4[4], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       else if (length(phen4) == 3) {
-        drawbox(2-0.3, i, phen4[1], 0, 1, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.2, i, phen4[2], 0, 1, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen4[3], 0, 1, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.3, i, phen4[1], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen4[2], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen4[3], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       else if (length(phen4) == 2) {
-        drawbox(2-0.2, i, phen4[1], 0, 1, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.1, i, phen4[2], 0, 1, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.2, i, phen4[1], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen4[2], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       else if (length(phen4) == 1) {
-        drawbox(2-0.1, i, phen4[1], 0, 1, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, phen4[1], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       phen4 <- NULL
     }
     
     else if (!is.null(carriers4)) {
       if (length(carriers4) == 4) {
-        drawbox(2-0.4, i, carriers4[1], 0, 2, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.3, i, carriers4[2], 0, 2, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.2, i, carriers4[3], 0, 2, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers4[4], 0, 2, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.4, i, carriers4[1], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.3, i, carriers4[2], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers4[3], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers4[4], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       else if (length(carriers4) == 3) {
-        drawbox(2-0.3, i, carriers4[1], 0, 2, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.2, i, carriers4[2], 0, 2, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers4[3], 0, 2, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.3, i, carriers4[1], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers4[2], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers4[3], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       else if (length(carriers4) == 2) {
-        drawbox(2-0.2, i, carriers4[1], 0, 2, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.1, i, carriers4[2], 0, 2, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.2, i, carriers4[1], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers4[2], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       else if (length(carriers4) == 1) {
-        drawbox(2-0.1, i, carriers4[1], 0, 2, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, carriers4[1], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       carriers4 <- NULL
     }
     
     else if (!is.null(presymp4)) {
       if (length(presymp4) == 4) {
-        drawbox(2-0.4, i, presymp4[1], 0, 3, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.3, i, presymp4[2], 0, 3, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.2, i, presymp4[3], 0, 3, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp4[4], 0, 3, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.4, i, presymp4[1], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.3, i, presymp4[2], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp4[3], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp4[4], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       else if (length(presymp4) == 3) {
-        drawbox(2-0.3, i, presymp4[1], 0, 3, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.2, i, presymp4[2], 0, 3, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp4[3], 0, 3, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.3, i, presymp4[1], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp4[2], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp4[3], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       else if (length(presymp4) == 2) {
-        drawbox(2-0.2, i, presymp4[1], 0, 3, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
-        drawbox(2-0.1, i, presymp4[2], 0, 3, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.2, i, presymp4[1], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp4[2], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       else if (length(presymp4) == 1) {
-        drawbox(2-0.1, i, presymp4[1], 0, 3, col[4], polylist, density[4], angle[4], boxw, boxh, NA)
+        drawbox(2-0.1, i, presymp4[1], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
       presymp4 <- NULL
     }
