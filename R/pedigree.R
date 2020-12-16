@@ -185,7 +185,7 @@ pedigree <- function(id, dadid, momid, sex, affected, status, relation,
         
         if (!is.numeric(code))
             code <- match(code, c("MZ twin", "DZ twin", "UZ twin", "spouse"))
-        else code <- factor(code, levels=1:6,
+        else code <- factor(code, levels=1:4,
                             labels=c("MZ twin", "DZ twin", "UZ twin", "spouse"))
         if (any(is.na(code)))
             stop("Invalid relationship code")
