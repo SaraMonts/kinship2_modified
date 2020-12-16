@@ -140,6 +140,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   
   
   print(sexes)
+  print(str(sexes))
   print(deceased)
   print(pregnancies)
   print(abortions)
@@ -156,6 +157,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   print(phen4)
   print(carriers4)
   print(presymp4)
+  
+  print(col1)
+  print(col2)
   
   
   
