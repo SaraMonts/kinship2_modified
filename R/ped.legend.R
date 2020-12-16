@@ -18,6 +18,8 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   
   df <- unique(df)
   
+  print(df)
+  
   
   sexes <- c()
   if ("female" %in% df$sex) sexes <- c(sexes, 2)
