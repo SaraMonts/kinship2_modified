@@ -301,9 +301,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(sexes) == 2) {
         drawbox(3, i, sexes[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
         drawbox(4, i, sexes[2], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
-        if (sexes == c(2, 1)) text(5, i + boxh/2, "Woman and man", cex = cex, adj = c(0, 0.5))
-        else if (sexes == c(2, 3)) text(5, i + boxh/2, "Woman and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
-        else if (sexes == c(1, 3)) text(5, i + boxh/2, "Man and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
+        if (sexes[1] == 2 & sexes[2] == 1) text(5, i + boxh/2, "Woman and man", cex = cex, adj = c(0, 0.5))
+        else if (sexes[1] == 2 & sexes[2] == 3) text(5, i + boxh/2, "Woman and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
+        else if (sexes[1] == 1 & sexes[2] == 3) text(5, i + boxh/2, "Man and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
       }
       else if (length(sexes) == 1) {
         drawbox(4, i, sexes[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, NA)
@@ -324,9 +324,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(deceased) == 2) {
         drawbox(3, i, deceased[1], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
         drawbox(4, i, deceased[2], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
-        if (deceased == c(2, 1)) text(5, i + boxh/2, "Deceased woman and man", cex = cex, adj = c(0, 0.5))
-        else if (deceased == c(2, 3)) text(5, i + boxh/2, "Deceased woman and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
-        else if (deceased == c(1, 3)) text(5, i + boxh/2, "Deceased man and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
+        if (deceased[1] == 2 & deceased[2] == 1) text(5, i + boxh/2, "Deceased woman and man", cex = cex, adj = c(0, 0.5))
+        else if (deceased[1] == 2 & deceased[2] == 3) text(5, i + boxh/2, "Deceased woman and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
+        else if (deceased[1] == 1 & deceased[2] == 3) text(5, i + boxh/2, "Deceased man and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
       }
       else if (length(deceased) == 1) {
         drawbox(4, i, deceased[1], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
@@ -347,9 +347,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(pregnancies) == 2) {
         drawbox(3, i, pregnancies[1], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
         drawbox(4, i, pregnancies[2], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
-        if (pregnancies == c(2, 1)) text(5, i + boxh/2, "Female and male pregnancies", cex = cex, adj = c(0, 0.5))
-        else if (pregnancies == c(2, 3)) text(5, i + boxh/2, "Female and unknown/non-binary/DSD pregnancies", cex = cex, adj = c(0, 0.5))
-        else if (pregnancies == c(1, 3)) text(5, i + boxh/2, "Male and unknown/non-binary/DSD pregnancies", cex = cex, adj = c(0, 0.5))
+        if (pregnancies[1] == 2 & pregnancies[2] == 1) text(5, i + boxh/2, "Female and male pregnancies", cex = cex, adj = c(0, 0.5))
+        else if (pregnancies[1] == 2 & pregnancies[2] == 3) text(5, i + boxh/2, "Female and unknown/non-binary/DSD pregnancies", cex = cex, adj = c(0, 0.5))
+        else if (pregnancies[1] == 1 & pregnancies[2] == 3) text(5, i + boxh/2, "Male and unknown/non-binary/DSD pregnancies", cex = cex, adj = c(0, 0.5))
       }
       else if (length(pregnancies) == 1) {
         drawbox(4, i, pregnancies[1], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
@@ -384,9 +384,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(adopteds) == 2) {
         drawbox(3, i, adopteds[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
         drawbox(4, i, adopteds[2], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
-        if (adopteds == c(2, 1)) text(5, i + boxh/2, "Adopted woman and man", cex = cex, adj = c(0, 0.5))
-        else if (adopteds == c(2, 3)) text(5, i + boxh/2, "Adopted woman and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
-        else if (adopteds == c(1, 3)) text(5, i + boxh/2, "Adopted man and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
+        if (adopteds[1] == 2 & adopteds[2] == 1) text(5, i + boxh/2, "Adopted woman and man", cex = cex, adj = c(0, 0.5))
+        else if (adopteds[1] == 2 & adopteds[2] == 3) text(5, i + boxh/2, "Adopted woman and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
+        else if (adopteds[1] == 1 & adopteds[2] == 3) text(5, i + boxh/2, "Adopted man and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
       }
       else if (length(adopteds) == 1) {
         drawbox(4, i, adopteds[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
