@@ -1,6 +1,7 @@
 
-ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, col = 1, symbolsize = 1, 
-                       width = 10, height = 4, density = -1, angle = 45)
+ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen2", "phen3", "phen4"), 
+                       cex = 1, col = c(1, 1, 1, 1), symbolsize = 1, 
+                       width = 10, height = 4, density = c(-1, -1, -1, -1), angle = c(45, 45, 45, 45))
 {
   ped <- as.data.frame.pedigree(x[as.character(ped_id)])
   
@@ -17,6 +18,16 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
                    affected2 = aff2, affected3 = aff3, affected4 = aff4)
   
   df <- unique(df)
+  
+  
+  if (length(phen.labels) != 4) stop("phen.labels must have length 4")
+  
+  if (length(col) != 4) stop("col must have length 4")
+  
+  if (length(density) != 4) stop("density must have length 4")
+  
+  if (length(angles) != 4) stop("angles must have length 4")
+  
   
   
   sexes <- c()
@@ -319,21 +330,15 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
         drawbox(2, i, deceased[1], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
         drawbox(3, i, deceased[2], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
         drawbox(4, i, deceased[3], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
-        text(5, i + boxh/2, "Deceased woman, man and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
       }
       else if (length(deceased) == 2) {
         drawbox(3, i, deceased[1], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
         drawbox(4, i, deceased[2], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
-        if (deceased[1] == 2 & deceased[2] == 1) text(5, i + boxh/2, "Deceased woman and man", cex = cex, adj = c(0, 0.5))
-        else if (deceased[1] == 2 & deceased[2] == 3) text(5, i + boxh/2, "Deceased woman and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
-        else if (deceased[1] == 1 & deceased[2] == 3) text(5, i + boxh/2, "Deceased man and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
       }
       else if (length(deceased) == 1) {
         drawbox(4, i, deceased[1], 1, 0, polylist, NA, NA, NA, boxw, boxh, NA)
-        if (deceased == 2) text(5, i + boxh/2, "Deceased woman", cex = cex, adj = c(0, 0.5))
-        else if (deceased == 1) text(5, i + boxh/2, "Deceased man", cex = cex, adj = c(0, 0.5))
-        else if (deceased == 3) text(5, i + boxh/2, "Deceased unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
       }
+      text(5, i + boxh/2, "Deceased", cex = cex, adj = c(0, 0.5))
       deceased <- NULL
     }
     
@@ -342,21 +347,15 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
         drawbox(2, i, pregnancies[1], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
         drawbox(3, i, pregnancies[2], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
         drawbox(4, i, pregnancies[3], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
-        text(5, i + boxh/2, "Female, male and unknown/non-binary/DSD pregnancies", cex = cex, adj = c(0, 0.5))
       }
       else if (length(pregnancies) == 2) {
         drawbox(3, i, pregnancies[1], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
         drawbox(4, i, pregnancies[2], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
-        if (pregnancies[1] == 2 & pregnancies[2] == 1) text(5, i + boxh/2, "Female and male pregnancies", cex = cex, adj = c(0, 0.5))
-        else if (pregnancies[1] == 2 & pregnancies[2] == 3) text(5, i + boxh/2, "Female and unknown/non-binary/DSD pregnancies", cex = cex, adj = c(0, 0.5))
-        else if (pregnancies[1] == 1 & pregnancies[2] == 3) text(5, i + boxh/2, "Male and unknown/non-binary/DSD pregnancies", cex = cex, adj = c(0, 0.5))
       }
       else if (length(pregnancies) == 1) {
         drawbox(4, i, pregnancies[1], 2, 0, polylist, NA, NA, NA, boxw, boxh, NA)
-        if (pregnancies == 2) text(5, i + boxh/2, "Female pregnancy", cex = cex, adj = c(0, 0.5))
-        else if (pregnancies == 1) text(5, i + boxh/2, "Male pregnancy", cex = cex, adj = c(0, 0.5))
-        else if (pregnancies == 3) text(5, i + boxh/2, "Unknown/non-binary/DSD pregnancy", cex = cex, adj = c(0, 0.5))
       }
+      text(5, i + boxh/2, "Pregnancy", cex = cex, adj = c(0, 0.5))
       pregnancies <- NULL
     }
     
@@ -379,21 +378,15 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
         drawbox(2, i, adopteds[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
         drawbox(3, i, adopteds[2], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
         drawbox(4, i, adopteds[3], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
-        text(5, i + boxh/2, "Adopted woman, man and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
       }
       else if (length(adopteds) == 2) {
         drawbox(3, i, adopteds[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
         drawbox(4, i, adopteds[2], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
-        if (adopteds[1] == 2 & adopteds[2] == 1) text(5, i + boxh/2, "Adopted woman and man", cex = cex, adj = c(0, 0.5))
-        else if (adopteds[1] == 2 & adopteds[2] == 3) text(5, i + boxh/2, "Adopted woman and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
-        else if (adopteds[1] == 1 & adopteds[2] == 3) text(5, i + boxh/2, "Adopted man and unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
       }
       else if (length(adopteds) == 1) {
         drawbox(4, i, adopteds[1], 0, 0, polylist, NA, NA, NA, boxw, boxh, "in")
-        if (adopteds == 2) text(5, i + boxh/2, "Adopted woman", cex = cex, adj = c(0, 0.5))
-        else if (adopteds == 1) text(5, i + boxh/2, "Adopted man", cex = cex, adj = c(0, 0.5))
-        else if (adopteds == 3) text(5, i + boxh/2, "Adopted unknown/non-binary/DSD", cex = cex, adj = c(0, 0.5))
       }
+      text(5, i + boxh/2, "Adopted", cex = cex, adj = c(0, 0.5))
       adopteds <- NULL
     }
   }
@@ -421,6 +414,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(phen1) == 1) {
         drawbox(14, i, phen1[1], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, phen.labels[1], cex = cex, adj = c(0, 0.5))
       phen1 <- NULL
     }
     
@@ -443,6 +437,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(carriers1) == 1) {
         drawbox(14, i, carriers1[1], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, paste("Carrier of", phen.labels[1], sep = " "), cex = cex, adj = c(0, 0.5))
       carriers1 <- NULL
     }
     
@@ -465,6 +460,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(presymp1) == 1) {
         drawbox(14, i, presymp1[1], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[1], sep = " "), cex = cex, adj = c(0, 0.5))
       presymp1 <- NULL
     }
     
@@ -487,6 +483,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(phen2) == 1) {
         drawbox(14, i, phen2[1], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, phen.labels[2], cex = cex, adj = c(0, 0.5))
       phen2 <- NULL
     }
     
@@ -509,6 +506,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(carriers2) == 1) {
         drawbox(14, i, carriers2[1], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, paste("Carrier of", phen.labels[2], sep = " "), cex = cex, adj = c(0, 0.5))
       carriers2 <- NULL
     }
     
@@ -531,6 +529,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(presymp2) == 1) {
         drawbox(14, i, presymp2[1], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[2], sep = " "), cex = cex, adj = c(0, 0.5))
       presymp2 <- NULL
     }
     
@@ -553,6 +552,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(phen3) == 1) {
         drawbox(14, i, phen3[1], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, phen.labels[3], cex = cex, adj = c(0, 0.5))
       phen3 <- NULL
     }
     
@@ -575,6 +575,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(carriers3) == 1) {
         drawbox(14, i, carriers3[1], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, paste("Carrier of", phen.labels[3], sep = " "), cex = cex, adj = c(0, 0.5))
       carriers3 <- NULL
     }
     
@@ -597,6 +598,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(presymp3) == 1) {
         drawbox(14, i, presymp3[1], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[3], sep = " "), cex = cex, adj = c(0, 0.5))
       presymp3 <- NULL
     }
     
@@ -619,6 +621,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(phen4) == 1) {
         drawbox(14, i, phen4[1], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, phen.labels[4], cex = cex, adj = c(0, 0.5))
       phen4 <- NULL
     }
     
@@ -641,6 +644,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(carriers4) == 1) {
         drawbox(14, i, carriers4[1], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, paste("Carrier of", phen.labels[4], sep = " "), cex = cex, adj = c(0, 0.5))
       carriers4 <- NULL
     }
     
@@ -663,6 +667,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = NULL, cex = 1, c
       else if (length(presymp4) == 1) {
         drawbox(14, i, presymp4[1], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
+      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[4], sep = " "), cex = cex, adj = c(0, 0.5))
       presymp4 <- NULL
     }
     
