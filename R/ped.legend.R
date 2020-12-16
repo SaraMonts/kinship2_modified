@@ -26,7 +26,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   
   if (length(density) != 4) stop("density must have length 4")
   
-  if (length(angles) != 4) stop("angles must have length 4")
+  if (length(angle) != 4) stop("angles must have length 4")
   
   
   
