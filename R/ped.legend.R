@@ -18,8 +18,6 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   
   df <- unique(df)
   
-  print(df)
-  
   
   sexes <- c()
   if ("female" %in% df$sex) sexes <- c(sexes, 2)
@@ -139,6 +137,25 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   if (length(phen4) > 0) col2 <- col2 + 1
   if (length(carriers4) > 0) col2 <- col2 + 1
   if (length(presymp4) > 0) col2 <- col2 + 1
+  
+  
+  print(sexes)
+  print(deceased)
+  print(pregnancies)
+  print(abortions)
+  print(adopteds)
+  print(phen1)
+  print(carriers1)
+  print(presymp1)
+  print(phen2)
+  print(carriers2)
+  print(presymp2)
+  print(phen3)
+  print(carriers3)
+  print(presymp3)
+  print(phen4)
+  print(carriers4)
+  print(presymp4)
   
   
   
