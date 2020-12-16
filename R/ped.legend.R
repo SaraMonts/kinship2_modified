@@ -21,122 +21,122 @@ ped.legend <- function(x, ped_id, adopted = NULL, labels = NULL, cex = 1, col = 
   
   sexes <- c()
   if ("female" %in% df$sex) sexes <- c(sexes, 2)
-  else if ("male" %in% df$sex) sexes <- c(sexes, 1)
-  else if ("unknown" %in% df$sex) sexes <- c(sexes, 3)
+  if ("male" %in% df$sex) sexes <- c(sexes, 1)
+  if ("unknown" %in% df$sex) sexes <- c(sexes, 3)
   
   deceased <- c()
   if (any(df$sex == "female" & df$status == 1)) deceased <- c(deceased, 2)
-  else if (any(df$sex == "male" & df$status == 1)) deceased <- c(deceased, 1)
-  else if (any(df$sex == "unknown" & df$status == 1)) deceased <- c(deceased, 3)
+  if (any(df$sex == "male" & df$status == 1)) deceased <- c(deceased, 1)
+  if (any(df$sex == "unknown" & df$status == 1)) deceased <- c(deceased, 3)
   
   pregnancies <- c()
   if (any(df$sex == "female" & df$status == 2)) pregnancies <- c(pregnancies, 2)
-  else if (any(df$sex == "male" & df$status == 2)) pregnancies <- c(pregnancies, 1)
-  else if (any(df$sex == "unknown" & df$status == 2)) pregnancies <- c(pregnancies, 3)
+  if (any(df$sex == "male" & df$status == 2)) pregnancies <- c(pregnancies, 1)
+  if (any(df$sex == "unknown" & df$status == 2)) pregnancies <- c(pregnancies, 3)
   
   abortions <- c()
   if (any(df$sex == "terminated" & df$status == 0)) abortions <- c(abortions, 0)
-  else if (any(df$sex == "terminated" & df$status == 1)) abortions <- c(abortions, 1)
+  if (any(df$sex == "terminated" & df$status == 1)) abortions <- c(abortions, 1)
   
   adopteds <- c()
   if (any(df$sex == "female" & !is.na(df$adopted))) adopteds <- c(adopteds, 2)
-  else if (any(df$sex == "male" & !is.na(df$adopted))) adopteds <- c(adopteds, 1)
-  else if (any(df$sex == "unknown" & !is.na(df$adopted))) adopteds <- c(adopteds, 3)
+  if (any(df$sex == "male" & !is.na(df$adopted))) adopteds <- c(adopteds, 1)
+  if (any(df$sex == "unknown" & !is.na(df$adopted))) adopteds <- c(adopteds, 3)
   
   phen1 <- c()
   if (any(df$sex == "female" & df$affected1 == 1)) phen1 <- c(phen1, 2)
-  else if (any(df$sex == "male" & df$affected1 == 1)) phen1 <- c(phen1, 1)
-  else if (any(df$sex == "unknown" & df$affected1 == 1)) phen1 <- c(phen1, 3)
-  else if (any(df$sex == "terminated" & df$affected1 == 1)) phen1 <- c(phen1, 4)
+  if (any(df$sex == "male" & df$affected1 == 1)) phen1 <- c(phen1, 1)
+  if (any(df$sex == "unknown" & df$affected1 == 1)) phen1 <- c(phen1, 3)
+  if (any(df$sex == "terminated" & df$affected1 == 1)) phen1 <- c(phen1, 4)
   
   carriers1 <- c()
   if (any(df$sex == "female" & df$affected1 == 2)) carriers1 <- c(carriers1, 2)
-  else if (any(df$sex == "male" & df$affected1 == 2)) carriers1 <- c(carriers1, 1)
-  else if (any(df$sex == "unknown" & df$affected1 == 2)) carriers1 <- c(carriers1, 3)
-  else if (any(df$sex == "terminated" & df$affected1 == 2)) carriers1 <- c(carriers1, 4)
+  if (any(df$sex == "male" & df$affected1 == 2)) carriers1 <- c(carriers1, 1)
+  if (any(df$sex == "unknown" & df$affected1 == 2)) carriers1 <- c(carriers1, 3)
+  if (any(df$sex == "terminated" & df$affected1 == 2)) carriers1 <- c(carriers1, 4)
   
   presymp1 <- c()
   if (any(df$sex == "female" & df$affected1 == 3)) presymp1 <- c(presymp1, 2)
-  else if (any(df$sex == "male" & df$affected1 == 3)) presymp1 <- c(presymp1, 1)
-  else if (any(df$sex == "unknown" & df$affected1 == 3)) presymp1 <- c(presymp1, 3)
-  else if (any(df$sex == "terminated" & df$affected1 == 3)) presymp1 <- c(presymp1, 4)
+  if (any(df$sex == "male" & df$affected1 == 3)) presymp1 <- c(presymp1, 1)
+  if (any(df$sex == "unknown" & df$affected1 == 3)) presymp1 <- c(presymp1, 3)
+  if (any(df$sex == "terminated" & df$affected1 == 3)) presymp1 <- c(presymp1, 4)
   
   phen2 <- c()
   if (any(df$sex == "female" & df$affected2 == 1)) phen2 <- c(phen2, 2)
-  else if (any(df$sex == "male" & df$affected2 == 1)) phen2 <- c(phen2, 1)
-  else if (any(df$sex == "unknown" & df$affected2 == 1)) phen2 <- c(phen2, 3)
-  else if (any(df$sex == "terminated" & df$affected2 == 1)) phen2 <- c(phen2, 4)
+  if (any(df$sex == "male" & df$affected2 == 1)) phen2 <- c(phen2, 1)
+  if (any(df$sex == "unknown" & df$affected2 == 1)) phen2 <- c(phen2, 3)
+  if (any(df$sex == "terminated" & df$affected2 == 1)) phen2 <- c(phen2, 4)
   
   carriers2 <- c()
   if (any(df$sex == "female" & df$affected2 == 2)) carriers2 <- c(carriers2, 2)
-  else if (any(df$sex == "male" & df$affected2 == 2)) carriers2 <- c(carriers2, 1)
-  else if (any(df$sex == "unknown" & df$affected2 == 2)) carriers2 <- c(carriers2, 3)
-  else if (any(df$sex == "terminated" & df$affected2 == 2)) carriers2 <- c(carriers2, 4)
+  if (any(df$sex == "male" & df$affected2 == 2)) carriers2 <- c(carriers2, 1)
+  if (any(df$sex == "unknown" & df$affected2 == 2)) carriers2 <- c(carriers2, 3)
+  if (any(df$sex == "terminated" & df$affected2 == 2)) carriers2 <- c(carriers2, 4)
   
   presymp2 <- c()
   if (any(df$sex == "female" & df$affected2 == 3)) presymp2 <- c(presymp2, 2)
-  else if (any(df$sex == "male" & df$affected2 == 3)) presymp2 <- c(presymp2, 1)
-  else if (any(df$sex == "unknown" & df$affected2 == 3)) presymp2 <- c(presymp2, 3)
-  else if (any(df$sex == "terminated" & df$affected2 == 3)) presymp2 <- c(presymp2, 4)
+  if (any(df$sex == "male" & df$affected2 == 3)) presymp2 <- c(presymp2, 1)
+  if (any(df$sex == "unknown" & df$affected2 == 3)) presymp2 <- c(presymp2, 3)
+  if (any(df$sex == "terminated" & df$affected2 == 3)) presymp2 <- c(presymp2, 4)
   
   phen3 <- c()
   if (any(df$sex == "female" & df$affected3 == 1)) phen3 <- c(phen3, 2)
-  else if (any(df$sex == "male" & df$affected3 == 1)) phen3 <- c(phen3, 1)
-  else if (any(df$sex == "unknown" & df$affected3 == 1)) phen3 <- c(phen3, 3)
-  else if (any(df$sex == "terminated" & df$affected3 == 1)) phen3 <- c(phen3, 4)
+  if (any(df$sex == "male" & df$affected3 == 1)) phen3 <- c(phen3, 1)
+  if (any(df$sex == "unknown" & df$affected3 == 1)) phen3 <- c(phen3, 3)
+  if (any(df$sex == "terminated" & df$affected3 == 1)) phen3 <- c(phen3, 4)
   
   carriers3 <- c()
   if (any(df$sex == "female" & df$affected3 == 2)) carriers3 <- c(carriers3, 2)
-  else if (any(df$sex == "male" & df$affected3 == 2)) carriers3 <- c(carriers3, 1)
-  else if (any(df$sex == "unknown" & df$affected3 == 2)) carriers3 <- c(carriers3, 3)
-  else if (any(df$sex == "terminated" & df$affected3 == 2)) carriers3 <- c(carriers3, 4)
+  if (any(df$sex == "male" & df$affected3 == 2)) carriers3 <- c(carriers3, 1)
+  if (any(df$sex == "unknown" & df$affected3 == 2)) carriers3 <- c(carriers3, 3)
+  if (any(df$sex == "terminated" & df$affected3 == 2)) carriers3 <- c(carriers3, 4)
   
   presymp3 <- c()
   if (any(df$sex == "female" & df$affected3 == 3)) presymp3 <- c(presymp3, 2)
-  else if (any(df$sex == "male" & df$affected3 == 3)) presymp3 <- c(presymp3, 1)
-  else if (any(df$sex == "unknown" & df$affected3 == 3)) presymp3 <- c(presymp3, 3)
-  else if (any(df$sex == "terminated" & df$affected3 == 3)) presymp3 <- c(presymp3, 4)
+  if (any(df$sex == "male" & df$affected3 == 3)) presymp3 <- c(presymp3, 1)
+  if (any(df$sex == "unknown" & df$affected3 == 3)) presymp3 <- c(presymp3, 3)
+  if (any(df$sex == "terminated" & df$affected3 == 3)) presymp3 <- c(presymp3, 4)
   
   phen4 <- c()
   if (any(df$sex == "female" & df$affected4 == 1)) phen4 <- c(phen4, 2)
-  else if (any(df$sex == "male" & df$affected4 == 1)) phen4 <- c(phen4, 1)
-  else if (any(df$sex == "unknown" & df$affected4 == 1)) phen4 <- c(phen4, 3)
-  else if (any(df$sex == "terminated" & df$affected4 == 1)) phen4 <- c(phen4, 4)
+  if (any(df$sex == "male" & df$affected4 == 1)) phen4 <- c(phen4, 1)
+  if (any(df$sex == "unknown" & df$affected4 == 1)) phen4 <- c(phen4, 3)
+  if (any(df$sex == "terminated" & df$affected4 == 1)) phen4 <- c(phen4, 4)
   
   carriers4 <- c()
   if (any(df$sex == "female" & df$affected4 == 2)) carriers4 <- c(carriers4, 2)
-  else if (any(df$sex == "male" & df$affected4 == 2)) carriers4 <- c(carriers4, 1)
-  else if (any(df$sex == "unknown" & df$affected4 == 2)) carriers4 <- c(carriers4, 3)
-  else if (any(df$sex == "terminated" & df$affected4 == 2)) carriers4 <- c(carriers4, 4)
+  if (any(df$sex == "male" & df$affected4 == 2)) carriers4 <- c(carriers4, 1)
+  if (any(df$sex == "unknown" & df$affected4 == 2)) carriers4 <- c(carriers4, 3)
+  if (any(df$sex == "terminated" & df$affected4 == 2)) carriers4 <- c(carriers4, 4)
   
   presymp4 <- c()
   if (any(df$sex == "female" & df$affected4 == 3)) presymp4 <- c(presymp4, 2)
-  else if (any(df$sex == "male" & df$affected4 == 3)) presymp4 <- c(presymp4, 1)
-  else if (any(df$sex == "unknown" & df$affected4 == 3)) presymp4 <- c(presymp4, 3)
-  else if (any(df$sex == "terminated" & df$affected4 == 3)) presymp4 <- c(presymp4, 4)
+  if (any(df$sex == "male" & df$affected4 == 3)) presymp4 <- c(presymp4, 1)
+  if (any(df$sex == "unknown" & df$affected4 == 3)) presymp4 <- c(presymp4, 3)
+  if (any(df$sex == "terminated" & df$affected4 == 3)) presymp4 <- c(presymp4, 4)
   
   
   
   col1 <- 0
-  if (length(sexes) > 0) col1 <- col1 + 1
-  if (length(deceased) > 0) col1 <- col1 + 1
-  if (length(pregnancies) > 0) col1 <- col1 + 1
-  if (length(abortions) > 0) col1 <- col1 + 1
-  if (length(adopteds) > 0) col1 <- col1 + 1
+  if (!is.null(sexes)) col1 <- col1 + 1
+  if (!is.null(deceased)) col1 <- col1 + 1
+  if (!is.null(pregnancies)) col1 <- col1 + 1
+  if (!is.null(abortions)) col1 <- col1 + 1
+  if (!is.null(adopteds)) col1 <- col1 + 1
   
   col2 <- 0
-  if (length(phen1) > 0) col2 <- col2 + 1
-  if (length(carriers1) > 0) col2 <- col2 + 1
-  if (length(presymp1) > 0) col2 <- col2 + 1
-  if (length(phen2) > 0) col2 <- col2 + 1
-  if (length(carriers2) > 0) col2 <- col2 + 1
-  if (length(presymp2) > 0) col2 <- col2 + 1
-  if (length(phen3) > 0) col2 <- col2 + 1
-  if (length(carriers3) > 0) col2 <- col2 + 1
-  if (length(presymp3) > 0) col2 <- col2 + 1
-  if (length(phen4) > 0) col2 <- col2 + 1
-  if (length(carriers4) > 0) col2 <- col2 + 1
-  if (length(presymp4) > 0) col2 <- col2 + 1
+  if (!is.null(phen1)) col2 <- col2 + 1
+  if (!is.null(carriers1)) col2 <- col2 + 1
+  if (!is.null(presymp1)) col2 <- col2 + 1
+  if (!is.null(phen2)) col2 <- col2 + 1
+  if (!is.null(carriers2)) col2 <- col2 + 1
+  if (!is.null(presymp2)) col2 <- col2 + 1
+  if (!is.null(phen3)) col2 <- col2 + 1
+  if (!is.null(carriers3)) col2 <- col2 + 1
+  if (!is.null(presymp3)) col2 <- col2 + 1
+  if (!is.null(phen4)) col2 <- col2 + 1
+  if (!is.null(carriers4)) col2 <- col2 + 1
+  if (!is.null(presymp4)) col2 <- col2 + 1
   
   
   print(sexes)
