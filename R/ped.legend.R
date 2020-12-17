@@ -14,6 +14,8 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   if (!is.null(ped$affected4)) aff4 <- ped$affected4
   else aff4 <- rep(0, nrow(ped))
   
+  if (is.null(adopted)) adopted <- rep(NA, nrow(ped))
+  
   df <- data.frame(sex = ped$sex, status = ped$status, adopted = adopted, affected1 = aff1, 
                    affected2 = aff2, affected3 = aff3, affected4 = aff4)
   
