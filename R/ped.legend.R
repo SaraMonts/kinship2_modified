@@ -444,7 +444,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(carriers1) == 1) {
         drawbox(14, i, carriers1[1], 0, 2, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Carrier of", phen.labels[1], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[1]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Carrier of", phen.labels[1], sep = sep), cex = cex, adj = c(0, 0.5))
       carriers1 <- NULL
     }
     
@@ -467,7 +469,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(presymp1) == 1) {
         drawbox(14, i, presymp1[1], 0, 3, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[1], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[1]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[1], sep = sep), cex = cex, adj = c(0, 0.5))
       presymp1 <- NULL
     }
     
@@ -490,7 +494,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(phen2) == 1) {
         drawbox(14, i, phen2[1], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Affected of", phen.labels[2], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[2]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Affected of", phen.labels[2], sep = sep), cex = cex, adj = c(0, 0.5))
       phen2 <- NULL
     }
     
@@ -513,7 +519,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(carriers2) == 1) {
         drawbox(14, i, carriers2[1], 0, 2, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Carrier of", phen.labels[2], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[2]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Carrier of", phen.labels[2], sep = sep), cex = cex, adj = c(0, 0.5))
       carriers2 <- NULL
     }
     
@@ -536,7 +544,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(presymp2) == 1) {
         drawbox(14, i, presymp2[1], 0, 3, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[2], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[2]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[2], sep = sep), cex = cex, adj = c(0, 0.5))
       presymp2 <- NULL
     }
     
@@ -559,7 +569,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(phen3) == 1) {
         drawbox(14, i, phen3[1], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Affected of", phen.labels[3], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[3]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Affected of", phen.labels[3], sep = sep), cex = cex, adj = c(0, 0.5))
       phen3 <- NULL
     }
     
@@ -582,7 +594,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(carriers3) == 1) {
         drawbox(14, i, carriers3[1], 0, 2, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Carrier of", phen.labels[3], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[3]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Carrier of", phen.labels[3], sep = sep), cex = cex, adj = c(0, 0.5))
       carriers3 <- NULL
     }
     
@@ -605,7 +619,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(presymp3) == 1) {
         drawbox(14, i, presymp3[1], 0, 3, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[3], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[3]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[3], sep = sep), cex = cex, adj = c(0, 0.5))
       presymp3 <- NULL
     }
     
@@ -628,7 +644,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(phen4) == 1) {
         drawbox(14, i, phen4[1], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Affected of", phen.labels[4], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[4]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Affected of", phen.labels[4], sep = sep), cex = cex, adj = c(0, 0.5))
       phen4 <- NULL
     }
     
@@ -651,7 +669,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(carriers4) == 1) {
         drawbox(14, i, carriers4[1], 0, 2, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Carrier of", phen.labels[4], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[4]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Carrier of", phen.labels[4], sep = sep), cex = cex, adj = c(0, 0.5))
       carriers4 <- NULL
     }
     
@@ -674,7 +694,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(presymp4) == 1) {
         drawbox(14, i, presymp4[1], 0, 3, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[4], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[4]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Presymptomatic of", phen.labels[4], sep = sep), cex = cex, adj = c(0, 0.5))
       presymp4 <- NULL
     }
     
