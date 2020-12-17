@@ -171,7 +171,10 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   
   boxsize <- symbolsize* min(ht1, ht2, stemp1, wd2) # box size in inches
   hscale <- (psize[1]- boxsize)/diff(xrange)  #horizontal scale from user-> inch
-  vscale <- (psize[2]-(stemp3 + stemp2/2 + boxsize))/ max(1, maxlev-1)
+  if (maxlev > 3) vscale <- (psize[2]-(stemp3 + stemp2/2 + boxsize))/ max(1, maxlev-1)
+  else if (maxlev == 3) vscale <- (psize[2]-(stemp3 + stemp2/2 + boxsize))/ max(1, 2.5)
+  else if (maxlev == 2) vscale <- (psize[2]-(stemp3 + stemp2/2 + boxsize))/ max(1, 1.75)
+  else if (maxlev == 1) vscale <- (psize[2]-(stemp3 + stemp2/2 + boxsize))/ max(1, 1.5)
   boxw  <- boxsize/hscale  # box width in user units
   boxh  <- boxsize/vscale   # box height in user units
   labh  <- stemp2/vscale   # height of a text string
