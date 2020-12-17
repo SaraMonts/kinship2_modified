@@ -179,7 +179,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   boxh  <- boxsize/vscale   # box height in user units
   labh  <- stemp2/vscale   # height of a text string
   
-  par(usr=c(xrange[1] - 1, xrange[2] + 1, 
+  par(usr=c(xrange[1], xrange[2] + 1, 
             maxlev + boxh + 0.5 , 0.5))
   
   circfun <- function(nslice, n=50) {
