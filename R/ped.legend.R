@@ -419,7 +419,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(phen1) == 1) {
         drawbox(14, i, phen1[1], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, paste("Affected of", phen.labels[1], sep = " "), cex = cex, adj = c(0, 0.5))
+      if (nchar(phen.labels[1]) <= 40) sep <- " "
+      else sep <- "\n"
+      text(15, i + boxh/2, paste("Affected of", phen.labels[1], sep = sep), cex = cex, adj = c(0, 0.5))
       phen1 <- NULL
     }
     
