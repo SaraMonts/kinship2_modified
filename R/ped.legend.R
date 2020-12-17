@@ -414,7 +414,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(phen1) == 1) {
         drawbox(14, i, phen1[1], 0, 1, polylist, col[1], density[1], angle[1], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, phen.labels[1], cex = cex, adj = c(0, 0.5))
+      text(15, i + boxh/2, paste("Affected of", phen.labels[1], sep = " "), cex = cex, adj = c(0, 0.5))
       phen1 <- NULL
     }
     
@@ -483,7 +483,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(phen2) == 1) {
         drawbox(14, i, phen2[1], 0, 1, polylist, col[2], density[2], angle[2], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, phen.labels[2], cex = cex, adj = c(0, 0.5))
+      text(15, i + boxh/2, paste("Affected of", phen.labels[2], sep = " "), cex = cex, adj = c(0, 0.5))
       phen2 <- NULL
     }
     
@@ -552,7 +552,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(phen3) == 1) {
         drawbox(14, i, phen3[1], 0, 1, polylist, col[3], density[3], angle[3], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, phen.labels[3], cex = cex, adj = c(0, 0.5))
+      text(15, i + boxh/2, paste("Affected of", phen.labels[3], sep = " "), cex = cex, adj = c(0, 0.5))
       phen3 <- NULL
     }
     
@@ -621,7 +621,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       else if (length(phen4) == 1) {
         drawbox(14, i, phen4[1], 0, 1, polylist, col[4], density[4], angle[4], boxw, boxh, NA)
       }
-      text(15, i + boxh/2, phen.labels[4], cex = cex, adj = c(0, 0.5))
+      text(15, i + boxh/2, paste("Affected of", phen.labels[4], sep = " "), cex = cex, adj = c(0, 0.5))
       phen4 <- NULL
     }
     
