@@ -7,6 +7,7 @@ as.data.frame.pedigree <- function(x, ...) {
   momid[x$mindex>0] <- x$id[x$mindex]
   df <- data.frame(id=x$id, dadid=dadid, momid=momid, sex=x$sex)
   
+  # Afegeixo els valors d'affected en el data frame
   if(!is.null(x$affected)) {
     for (i in 1:ncol(x$affected)) {
       aff <- x$affected[,i]

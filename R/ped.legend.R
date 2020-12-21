@@ -1,10 +1,13 @@
-
+# Nova funció afegida al paquet kinship2modified
 ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen2", "phen3", "phen4"), 
                        cex = 1, col = c(1, 1, 1, 1), symbolsize = 1, 
                        width = 10, height = 4, density = c(-1, -1, -1, -1), angle = c(45, 45, 45, 45))
 {
+  
+  # x ha de ser l'objecte pedigree. Es converteix aquest objecte en un data frame
   ped <- as.data.frame.pedigree(x[as.character(ped_id)])
   
+  # S'afegeixen les quatre columnes d'affected, amb zeros si és que no es tenen valors
   if (!is.null(ped$affected1)) aff1 <- ped$affected1
   else aff1 <- rep(0, nrow(ped))
   if (!is.null(ped$affected2)) aff2 <- ped$affected2
@@ -14,14 +17,17 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   if (!is.null(ped$affected4)) aff4 <- ped$affected4
   else aff4 <- rep(0, nrow(ped))
   
+  # En cas de que no s'afegeixi adopted, s'afegeix un vector amb tants NAs com files tingui el data frame ped
   if (is.null(adopted)) adopted <- rep(NA, nrow(ped))
   
+  # Es genera un nou data frame
   df <- data.frame(sex = ped$sex, status = ped$status, adopted = adopted, affected1 = aff1, 
                    affected2 = aff2, affected3 = aff3, affected4 = aff4)
   
+  # Es descarten les files que són iguals
   df <- unique(df)
   
-  
+  # Es comprova que els diferents arguments tinguin la llargada que toca
   if (length(phen.labels) != 4) stop("phen.labels must have length 4")
   
   if (length(col) != 4) stop("col must have length 4")
@@ -31,97 +37,116 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   if (length(angle) != 4) stop("angles must have length 4")
   
   
+  # Es comprova quins dels símbols que es poden incloure en el pedigree estan presents en el data frame. 
   
+  # Es crea un vector per als:
+  # Sexes que estan presents en el data frame (1, 2 i/o 3)
   sexes <- c()
   if ("female" %in% df$sex) sexes <- c(sexes, 2)
   if ("male" %in% df$sex) sexes <- c(sexes, 1)
   if ("unknown" %in% df$sex) sexes <- c(sexes, 3)
   
+  # Sexes dels morts
   deceased <- c()
   if (any(df$sex == "female" & df$status == 1)) deceased <- c(deceased, 2)
   if (any(df$sex == "male" & df$status == 1)) deceased <- c(deceased, 1)
   if (any(df$sex == "unknown" & df$status == 1)) deceased <- c(deceased, 3)
   
+  # Sexes dels embarassos
   pregnancies <- c()
   if (any(df$sex == "female" & df$status == 2)) pregnancies <- c(pregnancies, 2)
   if (any(df$sex == "male" & df$status == 2)) pregnancies <- c(pregnancies, 1)
   if (any(df$sex == "unknown" & df$status == 2)) pregnancies <- c(pregnancies, 3)
   
+  # Tipus d'avortaments
   abortions <- c()
   if (any(df$sex == "terminated" & df$status == 0)) abortions <- c(abortions, 0)
   if (any(df$sex == "terminated" & df$status == 1)) abortions <- c(abortions, 1)
   
+  # Sexes dels adoptats
   adopteds <- c()
   if (any(df$sex == "female" & !is.na(df$adopted))) adopteds <- c(adopteds, 2)
   if (any(df$sex == "male" & !is.na(df$adopted))) adopteds <- c(adopteds, 1)
   if (any(df$sex == "unknown" & !is.na(df$adopted))) adopteds <- c(adopteds, 3)
   
+  # Sexes dels afectats pel primer fenotip
   phen1 <- c()
   if (any(df$sex == "female" & df$affected1 == 1)) phen1 <- c(phen1, 2)
   if (any(df$sex == "male" & df$affected1 == 1)) phen1 <- c(phen1, 1)
   if (any(df$sex == "unknown" & df$affected1 == 1)) phen1 <- c(phen1, 3)
   if (any(df$sex == "terminated" & df$affected1 == 1)) phen1 <- c(phen1, 4)
   
+  # Sexes dels portadors del primer fenotip
   carriers1 <- c()
   if (any(df$sex == "female" & df$affected1 == 2)) carriers1 <- c(carriers1, 2)
   if (any(df$sex == "male" & df$affected1 == 2)) carriers1 <- c(carriers1, 1)
   if (any(df$sex == "unknown" & df$affected1 == 2)) carriers1 <- c(carriers1, 3)
   if (any(df$sex == "terminated" & df$affected1 == 2)) carriers1 <- c(carriers1, 4)
   
+  # Sexes dels presimptomàtics del primer fenotip
   presymp1 <- c()
   if (any(df$sex == "female" & df$affected1 == 3)) presymp1 <- c(presymp1, 2)
   if (any(df$sex == "male" & df$affected1 == 3)) presymp1 <- c(presymp1, 1)
   if (any(df$sex == "unknown" & df$affected1 == 3)) presymp1 <- c(presymp1, 3)
   if (any(df$sex == "terminated" & df$affected1 == 3)) presymp1 <- c(presymp1, 4)
   
+  # Sexes dels afectats pel segon fenotip
   phen2 <- c()
   if (any(df$sex == "female" & df$affected2 == 1)) phen2 <- c(phen2, 2)
   if (any(df$sex == "male" & df$affected2 == 1)) phen2 <- c(phen2, 1)
   if (any(df$sex == "unknown" & df$affected2 == 1)) phen2 <- c(phen2, 3)
   if (any(df$sex == "terminated" & df$affected2 == 1)) phen2 <- c(phen2, 4)
   
+  # Sexes dels portadors del segon fenotip
   carriers2 <- c()
   if (any(df$sex == "female" & df$affected2 == 2)) carriers2 <- c(carriers2, 2)
   if (any(df$sex == "male" & df$affected2 == 2)) carriers2 <- c(carriers2, 1)
   if (any(df$sex == "unknown" & df$affected2 == 2)) carriers2 <- c(carriers2, 3)
   if (any(df$sex == "terminated" & df$affected2 == 2)) carriers2 <- c(carriers2, 4)
   
+  # Sexes dels presimptomàtics del segon fenotip
   presymp2 <- c()
   if (any(df$sex == "female" & df$affected2 == 3)) presymp2 <- c(presymp2, 2)
   if (any(df$sex == "male" & df$affected2 == 3)) presymp2 <- c(presymp2, 1)
   if (any(df$sex == "unknown" & df$affected2 == 3)) presymp2 <- c(presymp2, 3)
   if (any(df$sex == "terminated" & df$affected2 == 3)) presymp2 <- c(presymp2, 4)
   
+  # Sexes dels afectats pel tercer fenotip
   phen3 <- c()
   if (any(df$sex == "female" & df$affected3 == 1)) phen3 <- c(phen3, 2)
   if (any(df$sex == "male" & df$affected3 == 1)) phen3 <- c(phen3, 1)
   if (any(df$sex == "unknown" & df$affected3 == 1)) phen3 <- c(phen3, 3)
   if (any(df$sex == "terminated" & df$affected3 == 1)) phen3 <- c(phen3, 4)
   
+  # Sexes dels portadors del tercer fenotip
   carriers3 <- c()
   if (any(df$sex == "female" & df$affected3 == 2)) carriers3 <- c(carriers3, 2)
   if (any(df$sex == "male" & df$affected3 == 2)) carriers3 <- c(carriers3, 1)
   if (any(df$sex == "unknown" & df$affected3 == 2)) carriers3 <- c(carriers3, 3)
   if (any(df$sex == "terminated" & df$affected3 == 2)) carriers3 <- c(carriers3, 4)
   
+  # Sexes dels presimptomàtics del tercer fenotip
   presymp3 <- c()
   if (any(df$sex == "female" & df$affected3 == 3)) presymp3 <- c(presymp3, 2)
   if (any(df$sex == "male" & df$affected3 == 3)) presymp3 <- c(presymp3, 1)
   if (any(df$sex == "unknown" & df$affected3 == 3)) presymp3 <- c(presymp3, 3)
   if (any(df$sex == "terminated" & df$affected3 == 3)) presymp3 <- c(presymp3, 4)
   
+  # Sexes dels afectats pel quart fenotip
   phen4 <- c()
   if (any(df$sex == "female" & df$affected4 == 1)) phen4 <- c(phen4, 2)
   if (any(df$sex == "male" & df$affected4 == 1)) phen4 <- c(phen4, 1)
   if (any(df$sex == "unknown" & df$affected4 == 1)) phen4 <- c(phen4, 3)
   if (any(df$sex == "terminated" & df$affected4 == 1)) phen4 <- c(phen4, 4)
   
+  # Sexes dels portadors del quart fenotip
   carriers4 <- c()
   if (any(df$sex == "female" & df$affected4 == 2)) carriers4 <- c(carriers4, 2)
   if (any(df$sex == "male" & df$affected4 == 2)) carriers4 <- c(carriers4, 1)
   if (any(df$sex == "unknown" & df$affected4 == 2)) carriers4 <- c(carriers4, 3)
   if (any(df$sex == "terminated" & df$affected4 == 2)) carriers4 <- c(carriers4, 4)
   
+  # Sexes dels presimptomàtics del quart fenotip
   presymp4 <- c()
   if (any(df$sex == "female" & df$affected4 == 3)) presymp4 <- c(presymp4, 2)
   if (any(df$sex == "male" & df$affected4 == 3)) presymp4 <- c(presymp4, 1)
@@ -130,6 +155,12 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   
   
   
+  # La llegenda contarà de dues columnes: una que conté els símbols dels sexes, morts, embarassos
+  # avortaments i adoptats, si és que n'hi ha, i una altra que contindrà tots els símbols relacionats
+  # amb els fenotips
+  
+  # Es compta quantes files tindran la primera i la segona columna en funció dels vectors generats
+  # anteriorment que no són NULLs
   col1 <- 0
   if (!is.null(sexes)) col1 <- col1 + 1
   if (!is.null(deceased)) col1 <- col1 + 1
@@ -153,13 +184,15 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   
   
   
-  
+  # Es copia una part del codi de la funció plot.pedigree, incorporant algunes petites modificacions.
+  # Aquest és el codi que s'encarrega de definir les mides de l'espai on es generarà el gràfic, així
+  # com les mides dels símbols
   
   xrange <- c(1, 19)
   maxlev <- max(col1, col2)
   frame()
   oldpar <- par(mar=c(4.1, 1, 4.1, 1), pin=c(width-2, height), xpd=TRUE)
-  psize <- par('pin')  # plot region in inches
+  psize <- par('pin') 
   stemp1 <- strwidth("ABC", units='inches', cex=1)* 2.5/3
   stemp2 <- strheight('1g', units='inches', cex=1)
   stemp3 <- max(strheight("HPO", units='inches', cex=1))
@@ -169,70 +202,20 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   ht2 <- psize[2]/(maxlev + (maxlev-1)/2)
   wd2 <- .8*psize[1]/(.8 + diff(xrange))
   
-  boxsize <- symbolsize* min(ht1, ht2, stemp1, wd2) # box size in inches
-  hscale <- (psize[1]- boxsize)/diff(xrange)  #horizontal scale from user-> inch
+  boxsize <- symbolsize* min(ht1, ht2, stemp1, wd2) 
+  hscale <- (psize[1]- boxsize)/diff(xrange) 
   if (maxlev > 3) vscale <- (psize[2]-(stemp3 + stemp2/2 + boxsize))/ max(1, maxlev-1)
   else if (maxlev == 3) vscale <- (psize[2]-(stemp3 + stemp2/2 + boxsize))/ 2.5
   else if (maxlev == 2) vscale <- (psize[2]-(stemp3 + stemp2/2 + boxsize))/ 1.75
   else if (maxlev == 1) vscale <- (psize[2]-(stemp3 + stemp2/2 + boxsize))/ 0.75
-  boxw  <- boxsize/hscale  # box width in user units
-  boxh  <- boxsize/vscale   # box height in user units
-  labh  <- stemp2/vscale   # height of a text string
+  boxw  <- boxsize/hscale 
+  boxh  <- boxsize/vscale  
   
   par(usr=c(xrange[1], xrange[2] + 1, 
             maxlev + boxh + 0.5 , 0.5))
   
-  circfun <- function(nslice, n=50) {
-    nseg <- ceiling(n/nslice)  #segments of arc per slice
-    
-    theta <- -pi/2 - seq(0, 2*pi, length=nslice +1)
-    out <- vector('list', nslice)
-    for (i in 1:nslice) {
-      theta2 <- seq(theta[i], theta[i+1], length=nseg)
-      out[[i]]<- list(x=c(0, cos(theta2)/2),
-                      y=c(0, sin(theta2)/2) + .5)
-    }
-    out
-  }
-  polyfun <- function(nslice, object) {
-    # make the indirect segments view
-    zmat <- matrix(0,ncol=4, nrow=length(object$x))
-    zmat[,1] <- object$x
-    zmat[,2] <- c(object$x[-1], object$x[1]) - object$x
-    zmat[,3] <- object$y
-    zmat[,4] <- c(object$y[-1], object$y[1]) - object$y
-    
-    # Find the cutpoint for each angle
-    #   Yes we could vectorize the loop, but nslice is never bigger than
-    # about 10 (and usually <5), so why be obscure?
-    ns1 <- nslice+1
-    theta <- -pi/2 - seq(0, 2*pi, length=ns1)
-    x <- y <- double(ns1)
-    for (i in 1:ns1) {
-      z <- (tan(theta[i])*zmat[,1] - zmat[,3])/
-        (zmat[,4] - tan(theta[i])*zmat[,2])
-      tx <- zmat[,1] + z*zmat[,2]
-      ty <- zmat[,3] + z*zmat[,4]
-      inner <- tx*cos(theta[i]) + ty*sin(theta[i])
-      indx <- which(is.finite(z) & z>=0 &  z<=1 & inner >0)
-      if (length(indx) > 1) indx <- indx[1]    
-      x[i] <- tx[indx]
-      y[i] <- ty[indx]
-    }
-    nvertex <- length(object$x)
-    temp <- data.frame(indx = c(1:ns1, rep(0, nvertex)),
-                       theta= c(theta, object$theta),
-                       x= c(x, object$x),
-                       y= c(y, object$y))
-    temp <- temp[order(-temp$theta),]
-    out <- vector('list', nslice)
-    for (i in 1:nslice) {
-      rows <- which(temp$indx==i):which(temp$indx==(i+1))
-      out[[i]] <- list(x=c(0, temp$x[rows]), y= c(0, temp$y[rows]) +.5)
-    }
-    out
-  }
   
+  # Es copia també la llista amb les coordenades necessàries per a generar cada símbol
 
   polylist <- list(
     square = list(list(x=c(-1, -1, 1, 1)/2,  y=c(0, 1, 1, 0))),
@@ -242,21 +225,26 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
     triangle= list(list(x=c(0, -.56, .56),  y=c(0, 0.82, 0.82))))
 
 
+  # També es copia la funció drawbox, però s'ha reduït per a que contingui només les parts del codi
+  # necessàries per a generar els símbols que ens interessa que apareguin a la llegenda
   
   drawbox <- function(x, y, sex, status, affected, polylist, col, density, angle, boxw, boxh, adopted) {
     
+    # Símbol per a in individu no afectat per cap fenotip
     if (affected == 0) {
       polygon(x + polylist[[sex]][[1]]$x *boxw,
               y + polylist[[sex]][[1]]$y *boxh,
               col=NA, border=1)
     }
     
+    # Símbol per a un individu afectat per un fenotip
     else if (affected == 1) {
       polygon(x + polylist[[sex]][[1]]$x * boxw,
               y + polylist[[sex]][[1]]$y * boxh,
               col=col, border=1, density=density, angle=angle)
     }
 
+    # Símbol per a un individu portador d'un fenotip
     else if (affected == 2) {
       polygon(x + polylist[[sex]][[1]]$x * boxw,
               y + polylist[[sex]][[1]]$y * boxh,
@@ -268,6 +256,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
       points(midx, midy, pch=16, cex=symbolsize, col=col)
     }
     
+    # Símbol per a un individu presimptomàtic per un fenotip
     else if (affected == 3) {
       polygon(x + polylist[[sex]][[1]]$x * boxw,
               y + polylist[[sex]][[1]]$y * boxh,
@@ -284,12 +273,12 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
     if (status==1) segments(x- .6*boxw, y+1.1*boxh, 
                             x+ .6*boxw, y- .1*boxh)
     
-    # Afegeixo aquest condicional per a indicar si es tracta d'un embaras
+    # S'indica si es tracta d'un embaras
     else if (status == 2) {
       points(x + boxw*0.02, y + mean(range(polylist[[sex]][[1]]$y*boxh)), pch="P", cex=symbolsize*0.8)
     }
     
-    # Afegeixo claudàtors si l'individu és adoptat
+    # S'afegeixen claudàtors si l'individu és adoptat
     if (!is.null(adopted)) {
       if (!is.na(adopted)) {
         if (adopted == "in" | adopted == "out") {
@@ -304,7 +293,11 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
     }
   }
   
+  
 
+  # Per a cada fila que s'espera que contingui la primera columna, es mira quins dels vectors calculats a l'inici
+  # no són NULLs i es representen els símbols dels sexes que corresponguin. S'afegeix també l'explicació
+  # que pertoca
   
   for (i in 1:col1) {
     if (!is.null(sexes)) {
@@ -398,6 +391,11 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   
   
 
+  
+  
+  # Per a cada fila que s'espera que contingui la segona columna, es mira quins dels vectors calculats a l'inici
+  # no són NULLs i es representen els símbols dels sexes que corresponguin. S'afegeix també l'explicació
+  # que pertoca
   
   for (i in 1:col2) {
     if (!is.null(phen1)) {
