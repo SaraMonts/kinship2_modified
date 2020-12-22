@@ -1,7 +1,6 @@
 \name{pedigree}
 \alias{pedigree}
 \alias{as.data.frame.pedigree}
-\alias{print.pedigree}
 \title{
   Create pedigree structure 
 }
