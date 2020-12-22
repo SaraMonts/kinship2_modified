@@ -5,7 +5,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                           symbolsize = 1, branch = 0.6,       
                           packed = TRUE, align = c(1.5,2), width = 8, height = 4,   # Afegeixo height = 4
                           density = -1, mar=c(4.1, 1, 4.1, 1),    # Canvio a density = -1
-                          angle = 90, keep.par=FALSE,          # Canvio a angle = 90
+                          angle = 45, keep.par=FALSE,          # Canvio a angle = 45
                           subregion, pconnect=.5, consultand = NULL, info = NULL,      # Afegeixo consultand = NULL i info = NULL
                           adopted = NULL, ...)     # Afegeixo adopted = NULL
 {
