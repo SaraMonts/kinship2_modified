@@ -1,2 +1,3 @@
-# kinship2_modified
-Paquet kinship2 de R modificat per Sara Montserrat Vázquez
+# kinship2modified
+
+Modification of some of the functions involved in the pedigree plot generation of the kinship2 package by Jason Sinnwell and Terry Therneau.
