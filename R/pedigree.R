@@ -131,7 +131,7 @@ pedigree <- function(id, dadid, momid, sex, affected, status, relation,
             }
         if(max(affected, na.rm=TRUE) > min(affected, na.rm=TRUE)) 
           affected <- affected - min(affected, na.rm=TRUE)
-        if (!all(affected==0 | affected==1 | is.na(affected) | affected==2 | affected==3))    # Afegeixo | affected==2 | affected==3
+        if (!all(affected==0 | affected==1 | is.na(affected) | affected==2 | affected==3))    # Afegeixo | affected==2 | affected==3 (portadors i presimptomàtics)
                     stop("Invalid code for affected status")
         temp$affected <- affected
         }
@@ -140,7 +140,7 @@ pedigree <- function(id, dadid, momid, sex, affected, status, relation,
         if(length(status) != n)
             stop("Wrong length for status")
         if (is.logical(status)) status <- as.integer(status)
-        if(any(status != 0 & status != 1 & status != 2))     # Afegeixo & status != 2
+        if(any(status != 0 & status != 1 & status != 2))     # Afegeixo & status != 2 (embaràs)
             stop("Invalid status code")
         temp$status <- status
         }
