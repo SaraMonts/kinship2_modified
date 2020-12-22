@@ -34,11 +34,11 @@ and of arbitrary case.
 \item{affected}{
   A variable indicating affection status.  A multi-column matrix
   can be used to give the status with respect to multiple traits.
-  Logical, factor, and integer types are converted to 0/1 representing
-  unaffected and affected, respectively. NAs are considered missing.
+  Logical, factor, and integer types are converted to 0/1/2/3 representing
+  unaffected, affected, carrier and presymptomatic, respectively. NAs are considered missing.
 }
 \item{status}{
-Status (0="censored", 1="dead")
+Status (0="censored", 1="dead", 2="pregnancy")
 }
 \item{relation}{
 A matrix with 3 required columns (id1, id2, code) specifying special relationship
