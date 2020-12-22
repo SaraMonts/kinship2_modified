@@ -1,6 +1,5 @@
 \name{plot.pedigree}
 \alias{plot.pedigree}
-\alias{legendPlot}
 \title{
   plot pedigrees
 }
@@ -9,82 +8,107 @@ plot objects created with the pedigree function
 }
 \usage{
 \method{plot}{pedigree}(x, id = x$id, status = x$status, affected =
-                 x$affected, cex = 1, col = 1, symbolsize = 1, branch =
-                 0.6, packed = TRUE, align = c(1.5,2), width = 8,
-                 density = c(-1, 35, 65, 20), mar = c(4.1, 1, 4.1, 1),
-                 angle = c(90, 65, 40, 0), keep.par = FALSE, subregion,
-                 pconnect= .5, \dots)
-legendPlot(x, id=x$id, affected=x$affected, affected.label=NULL,
-           col=1, col.label=NULL, symbolsize=.75, \dots)
+                 x$affected, age = NULL, number = NULL, cex = 1, col = 1, 
+                 dist_text = 1.5, symbolsize = 1, branch = 0.6, 
+                 packed = TRUE, align = c(1.5,2), width = 8, height = 4,
+                 density = -1, mar = c(4.1, 1, 4.1, 1), angle = 45, 
+                 keep.par = FALSE, subregion, pconnect= .5, 
+                 consultand = NULL, info = NULL, adopted = NULL, \dots)
 }
 \arguments{
 \item{x}{
 object created by the function pedigree.
 }
 \item{id}{
-id variable - used for labeling.  
+id variable.  
 }
 \item{status}{
-can be missing.  If it exists, 0=alive/missing and 1=death.
+can be missing.  If it exists, 0=alive/missing, 1=death and 2=pregnancy.
 }
 \item{affected}{
 vector, or matrix with up to 4 columns for affected
 indicators. Subject's symbol is divided into sections for each
 status, shaded if indicator is 1, not-shaded for 0, and symbol "?"
-if missing (NA)
+if missing (NA). If values 2 or 3 are present in a matrix row
+and all the other values of the matrix row are 0, a dot or a vertical 
+line is drawn inside the symbol (carriers and presymptomatics). 
 }
-\item{affected.label}{
-vector of text labels to describe affection statuses
+\item{age}{
+vector of ages of the subjects in the plot as character strings.
+}
+\item{number}{
+vector of number of subjects represented by every symbol. 
+Possible values: 1, 2, 3, 4, 5, 6, 7, 8, 9 or "n" (unknown number).
 }
 \item{cex}{
 controls text size.  Default=1.
 }
 \item{col}{
-color for each id.  Default assigns the same color to everyone.
+color for each affected column.  Default=1.
 }
-\item{col.label}{
-vector of text labels associated with each color in the legend.
+\item{dist_text}{
+distance between the symbols and the text below them. Default=1.5
 }
 \item{symbolsize}{
 controls symbolsize. Default=1.
 }
 \item{branch}{
-defines how much angle is used to connect various levels of nuclear families.
+defines how much angle is used to connect various levels of nuclear families. Default=0.6.
 }
 \item{packed}{
 default=T.  If T, uniform distance between all individuals at a given level.
 }
-\item{align}{ these parameters control the extra effort spent trying to
-  align children underneath parents, but without making the pedigree too
-  wide.  Set to F to speed up plotting.
+\item{align}{ 
+these parameters control the extra effort spent trying to
+align children underneath parents, but without making the pedigree too
+wide.  Set to F to speed up plotting.
 }
 \item{width}{
 default=8.  For a packed pedigree, the minimum width allowed in the
 realignment of pedigrees.
 }
-\item{density}{
-defines density used in the symbols.  Takes up to 4 different values.
+\item{height}{
+default=4. Height of the plot.
 }
-\item{mar}{margin parmeters, as in the \code{par} function}
+\item{density}{
+defines density used in the symbols for every affected column.  Default=-1. 
+}
+\item{mar}{
+margin parmeters, as in the \code{par} function
+}
 \item{angle}{
-defines angle used in the symbols.  Takes up to 4 different values.
+defines angle used in the symbols for every affected column.  Default=45.
 }
 \item{keep.par}{
 Default = F, allows user to keep the parameter settings the same as they
 were for plotting (useful for adding extras to the plot)
 }
-\item{subregion}{4-element vector for (min x, max x, min depth, max depth),
-  used to edit away portions of the plot coordinates returned by
-  align.pedigree
+\item{subregion}{
+4-element vector for (min x, max x, min depth, max depth),
+used to edit away portions of the plot coordinates returned by
+align.pedigree
 }
-\item{pconnect}{when connecting parent to children the program will try
-  to make the connecting line as close to vertical as possible, subject
-  to it lying inside the endpoints of the line that connects the
-  children by at least \code{pconnect} people.  Setting this option
-  to a large number will force the line to connect at the midpoint of
-  the children.}
-
-\item{\dots}{ Extra options that feed into the plot function}
+\item{pconnect}{
+when connecting parent to children the program will try
+to make the connecting line as close to vertical as possible, subject
+to it lying inside the endpoints of the line that connects the
+children by at least \code{pconnect} people.  Setting this option
+to a large number will force the line to connect at the midpoint of
+the children.
+}
+\item{consultand}{
+id of the consultand subjects.
+}
+\item{info}{
+matrix where every column is a field of information in the form of character strings. 
+}
+\item{adopted}{
+vector that contains adoption information for every subject. 
+Values can be: "in" (adopted inside the family), "out" (adopted outside the family) or NA (not adopted).
+}
+\item{\dots}{
+Extra options that feed into the plot function
+}
 }
 \value{
   an invisible list containing
