@@ -1,4 +1,5 @@
 \name{ped.legend}
+\alias{ped.legend}
 \title{
   Plot a legend for the pedigree
 }
