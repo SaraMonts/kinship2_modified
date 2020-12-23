@@ -7,7 +7,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
                           density = -1, mar=c(4.1, 1, 4.1, 1),    # Canvio a density = -1
                           angle = 45, keep.par=FALSE,          # Canvio a angle = 45
                           subregion, pconnect=.5, consultand = NULL, info = NULL,      # Afegeixo consultand = NULL i info = NULL
-                          adopted = NULL, author.name = NULL, ...)     # Afegeixo adopted = NULL i author.name = NULL
+                          adopted = NULL, ...)     # Afegeixo adopted = NULL
 {
     Call <- match.call()
     n <- length(x$id)        
@@ -117,13 +117,6 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     }
     
     
-    # Afegeixo comprovació de author.name
-    if (!is.null(author.name)) {
-      if (length(author.name) > 50) {
-        stop("The name of the author is too long")
-      }
-    }
-    
     
 
     
@@ -197,7 +190,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     legh  <- min(1/4, boxh  *1.5)  # how tall are the 'legs' up from a child
     
     par(usr=c(xrange[1]- boxw/2, xrange[2]+ boxw/2, 
-              maxlev+ boxh+ stemp3 + stemp2/2 + 0.5 , 1))
+              maxlev+ boxh+ stemp3 + stemp2/2, 1))
     
     circfun <- function(nslice, n=50) {
         nseg <- ceiling(n/nslice)  #segments of arc per slice
@@ -452,12 +445,6 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
         }
     }
     
-    if (!is.null(author.name)) {
-      xlong <- xrange[2] - xrange[1]
-      x_pos <- xlong/4 * 3
-      y_pos <- maxlev+ boxh+ stemp3 + stemp2/2 + 0.5
-      text(x_pos, y_pos, paste(paste("Pedigree created by", author.name, sep = " "), Sys.time(), sep = "\n"), cex = cex, adj = c(0, 1))
-    }
     
     
     maxcol <- ncol(plist$nid)  #all have the same size
