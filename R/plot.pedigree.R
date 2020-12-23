@@ -197,7 +197,7 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     legh  <- min(1/4, boxh  *1.5)  # how tall are the 'legs' up from a child
     
     par(usr=c(xrange[1]- boxw/2, xrange[2]+ boxw/2, 
-              maxlev+ boxh+ stemp3 + stemp2/2 + 1 , 1))
+              maxlev+ boxh+ stemp3 + stemp2/2 + 0.5 , 1))
     
     circfun <- function(nslice, n=50) {
         nseg <- ceiling(n/nslice)  #segments of arc per slice
@@ -455,8 +455,8 @@ plot.pedigree <- function(x, id = x$id, status = x$status,
     if (!is.null(author.name)) {
       xlong <- xrange[2] - xrange[1]
       x_pos <- xlong/4 * 3
-      y_pos <- maxlev+ boxh+ stemp3 + stemp2/2
-      text(x_pos, y_pos, paste(paste("Pedigree created by", author.name, sep = " "), Sys.time(), sep = "\n"), cex = cex)
+      y_pos <- maxlev+ boxh+ stemp3 + stemp2/2 + 0.5
+      text(x_pos, y_pos, paste(paste("Pedigree created by", author.name, sep = " "), Sys.time(), sep = "\n"), cex = cex, adj = c(0, 1))
     }
     
     
