@@ -1,6 +1,6 @@
 # Nova funció afegida al paquet kinship2modified
 ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen2", "phen3", "phen4"), 
-                       cex = 1, col = c(1, 1, 1, 1), symbolsize = 1, 
+                       cex = 1, col = c(1, 1, 1, 1), symbolsize = 1, mar = c(4.1, 1, 4.1, 1),
                        width = 10, height = 4, density = c(-1, -1, -1, -1), angle = c(45, 45, 45, 45))
 {
   
@@ -191,7 +191,7 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   xrange <- c(1, 19)
   maxlev <- max(col1, col2)
   frame()
-  oldpar <- par(mar=c(4.1, 1, 4.1, 1), pin=c(width-2, height), xpd=TRUE)
+  oldpar <- par(mar=mar, pin=c(width-2, height), xpd=TRUE)
   psize <- par('pin') 
   stemp1 <- strwidth("ABC", units='inches', cex=1)* 2.5/3
   stemp2 <- strheight('1g', units='inches', cex=1)
