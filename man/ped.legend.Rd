@@ -8,7 +8,7 @@ Create a plot with the description of the symbols that appear in the pedigree.
 }
 \usage{
 \method{ped}{legend}(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen2", "phen3", "phen4"), 
-                       cex = 1, col = c(1, 1, 1, 1), symbolsize = 1, width = 10, 
+                       cex = 1, col = c(1, 1, 1, 1), symbolsize = 1, mar = c(4.1, 1, 4.1, 1), width = 10, 
                        height = 4, density = c(-1, -1, -1, -1), angle = c(45, 45, 45, 45))
 }
 \arguments{
@@ -33,6 +33,9 @@ color for each phenotype.  Default=c(1, 1, 1, 1).
 }
 \item{symbolsize}{
 controls symbolsize. Default=1.
+}
+\item{mar}{
+margin parmeters, as in the \code{par} function
 }
 \item{width}{
 width of the legend plot. Default=10
