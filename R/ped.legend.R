@@ -28,7 +28,9 @@ ped.legend <- function(x, ped_id, adopted = NULL, phen.labels = c("phen1", "phen
   df <- unique(df)
   
   # Es comprova que els diferents arguments tinguin la mateixa llargada
-  if (!(length(phen.labels) == length(col) == length(density) == length(angle))) stop("phen.labels, col, density and angles don't have the same length")
+  if (!(length(phen.labels) == length(col) & length(col) == length(density) & length(density) == length(angle))) {
+    stop("phen.labels, col, density and angles don't have the same length")
+  }
   
   
   # Es comprova quins dels símbols que es poden incloure en el pedigree estan presents en el data frame. 
